@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d21063d"],{b84e:function(e,t,n){"use strict";n.r(t);var r=function(){var e=this,t=e.$createElement;e._self._c;return e._m(0)},s=[function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("div",{staticClass:"order"},[n("div",{staticClass:"container"},[n("h1",[e._v("訂單查詢")]),n("hr")])])}],c=n("2877"),a={},i=Object(c["a"])(a,r,s,!1,null,null,null);t["default"]=i.exports}}]);
+//# sourceMappingURL=chunk-2d21063d.5f43eb8a.js.map
