@@ -1,6 +1,10 @@
 <template>
   <router-link class="home" to="/about">
-    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+    <div
+      id="carouselExampleFade"
+      class="carousel slide carousel-fade"
+      data-ride="carousel"
+    >
       <!-- <ol class="carousel-indicators">
         <li data-target="#carouselExampleFade" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleFade" data-slide-to="1"></li>
@@ -8,39 +12,59 @@
       <div class="carousel-inner">
         <div class="carousel-item cover active">
           <!-- <img src="../../assets/img/slider/slider01.jpg" class="d-block w-100" alt="..."> -->
-          <div class="carousel-caption d-none d-md-block">
+          <div class="carousel-caption">
             <div class="carousel-content">
               <h1>The ART of AMBER WU</h1>
             </div>
           </div>
         </div>
-        <div class="carousel-item" :style="{backgroundImage: 'url('+slider01+')'}">
+        <div
+          class="carousel-item"
+          :style="{
+            backgroundImage: 'url(' + slider01 + ')'
+          }"
+        >
           <!-- <img src="../../assets/img/slider/slider01.jpg" class="d-block w-100" alt="..."> -->
-          <div class="carousel-caption d-none d-md-block">
+          <div class="carousel-caption">
             <div class="carousel-content">
               <h3>河景</h3>
               <h4>River</h4>
             </div>
           </div>
         </div>
-        <div class="carousel-item" :style="{backgroundImage: 'url('+slider02+')'}">
-          <div class="carousel-caption d-none d-md-block">
+        <div
+          class="carousel-item"
+          :style="{
+            backgroundImage: 'url(' + slider02 + ')'
+          }"
+        >
+          <div class="carousel-caption">
             <div class="carousel-content">
               <h3>漁港風光</h3>
               <h4>Fish Boats</h4>
             </div>
           </div>
         </div>
-        <div class="carousel-item" :style="{backgroundImage: 'url('+slider03+')'}">
-          <div class="carousel-caption d-none d-md-block">
+        <div
+          class="carousel-item"
+          :style="{
+            backgroundImage: 'url(' + slider03 + ')'
+          }"
+        >
+          <div class="carousel-caption">
             <div class="carousel-content">
               <h3>日落風光</h3>
               <h4>Sunset</h4>
             </div>
           </div>
         </div>
-        <div class="carousel-item" :style="{backgroundImage: 'url('+slider04+')'}">
-          <div class="carousel-caption d-none d-md-block">
+        <div
+          class="carousel-item"
+          :style="{
+            backgroundImage: 'url(' + slider04 + ')'
+          }"
+        >
+          <div class="carousel-caption">
             <div class="carousel-content">
               <h3>海岸 2</h3>
               <h4>Seashore 2</h4>
@@ -73,12 +97,12 @@ export default {
       slider02,
       slider03,
       slider04
-    }
+    };
   },
   mounted() {
     $(".carousel").carousel({
       interval: 5000
-    })
+    });
   }
-}
+};
 </script>
