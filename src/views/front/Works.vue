@@ -14,7 +14,7 @@
               class="prod-origin-price"
               v-if="prod.origin_price === prod.price"
             >
-              售價&nbsp;&nbsp;&nbsp;&nbsp;$ {{ prod.origin_price | currency }}
+              售價&nbsp;&nbsp;&nbsp;&nbsp;{{ prod.origin_price | currency }}
             </div>
             <span v-else>
               <div class="prod-origin-price old-price">
@@ -22,9 +22,7 @@
                 {{ prod.origin_price | currency }}
               </div>
               <div class="prod-price">
-                <b>
-                  特價&nbsp;&nbsp;&nbsp;&nbsp;$ {{ prod.price | currency }}
-                </b>
+                <b>特價&nbsp;&nbsp;&nbsp;&nbsp;{{ prod.price | currency }}</b>
               </div>
             </span>
           </router-link>
@@ -48,7 +46,7 @@
 import pagination from "@/components/Pagination";
 export default {
   components: {
-    pagination,
+    pagination
     // VueEditor
   },
   data() {
