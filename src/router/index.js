@@ -7,11 +7,11 @@ Vue.use(VueRouter);
 const routes = [
   {
     name: "Home",
-    path: "",
+    path: "/",
     component: () => import("../views/front/Home.vue")
   },
   {
-    path: "/",
+    path: "/front",
     name: "Home",
     component: () => import("../views/front/layout/Navbar.vue"),
     children: [
