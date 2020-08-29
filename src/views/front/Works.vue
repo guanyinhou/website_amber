@@ -18,7 +18,7 @@
             </div>
             <span v-else>
               <div class="prod-origin-price old-price">
-                售價&nbsp;&nbsp;&nbsp;&nbsp;$
+                售價&nbsp;&nbsp;&nbsp;&nbsp;
                 {{ prod.origin_price | currency }}
               </div>
               <div class="prod-price">
