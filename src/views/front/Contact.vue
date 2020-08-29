@@ -1,0 +1,7 @@
+<template>
+  <div class="contact">
+    <div class="container">
+      <h1>聯絡我們</h1><hr />
+    </div>
+  </div>
+</template>
