@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0c115c"],{4516:function(t,n,e){"use strict";e.r(n);var c=function(){var t=this,n=t.$createElement;t._self._c;return t._m(0)},s=[function(){var t=this,n=t.$createElement,e=t._self._c||n;return e("div",{staticClass:"work"},[e("div",{staticClass:"container"},[e("h1",[t._v("作品頁")]),e("hr")])])}],r=e("2877"),a={},i=Object(r["a"])(a,c,s,!1,null,null,null);n["default"]=i.exports}}]);
+//# sourceMappingURL=chunk-2d0c115c.1cfdc7ef.js.map

@@ -20,16 +20,29 @@
           </p>
         </div>
         <div class="col-sm-6">
-          <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+          <div
+            id="carouselExampleFade"
+            class="carousel slide carousel-fade"
+            data-ride="carousel"
+          >
             <ol class="carousel-indicators">
-              <li data-target="#carouselExampleFade" data-slide-to="0" class="active"></li>
+              <li
+                data-target="#carouselExampleFade"
+                data-slide-to="0"
+                class="active"
+              ></li>
               <li data-target="#carouselExampleFade" data-slide-to="1"></li>
               <li data-target="#carouselExampleFade" data-slide-to="2"></li>
               <li data-target="#carouselExampleFade" data-slide-to="3"></li>
               <li data-target="#carouselExampleFade" data-slide-to="4"></li>
             </ol>
             <div class="carousel-inner">
-              <div class="carousel-item active" :style="{backgroundImage: 'url('+slider01+')'}">
+              <div
+                class="carousel-item active"
+                :style="{
+                  backgroundImage: 'url(' + slider01 + ')'
+                }"
+              >
                 <!-- <img src="../../assets/img/slider/slider01.jpg" class="d-block w-100" alt="..."> -->
                 <div class="carousel-caption d-none d-md-block">
                   <div class="carousel-content">
@@ -37,28 +50,48 @@
                   </div>
                 </div>
               </div>
-              <div class="carousel-item" :style="{backgroundImage: 'url('+slider02+')'}">
+              <div
+                class="carousel-item"
+                :style="{
+                  backgroundImage: 'url(' + slider02 + ')'
+                }"
+              >
                 <div class="carousel-caption d-none d-md-block">
                   <div class="carousel-content">
                     <h5>我的寫生畫具</h5>
                   </div>
                 </div>
               </div>
-              <div class="carousel-item" :style="{backgroundImage: 'url('+slider03+')'}">
+              <div
+                class="carousel-item"
+                :style="{
+                  backgroundImage: 'url(' + slider03 + ')'
+                }"
+              >
                 <div class="carousel-caption d-none d-md-block">
                   <div class="carousel-content">
                     <h5>我的寫生畫具</h5>
                   </div>
                 </div>
               </div>
-              <div class="carousel-item" :style="{backgroundImage: 'url('+slider04+')'}">
+              <div
+                class="carousel-item"
+                :style="{
+                  backgroundImage: 'url(' + slider04 + ')'
+                }"
+              >
                 <div class="carousel-caption d-none d-md-block">
                   <div class="carousel-content">
                     <h5>在家鄉寫生</h5>
                   </div>
                 </div>
               </div>
-              <div class="carousel-item" :style="{backgroundImage: 'url('+slider05+')'}">
+              <div
+                class="carousel-item"
+                :style="{
+                  backgroundImage: 'url(' + slider05 + ')'
+                }"
+              >
                 <div class="carousel-caption d-none d-md-block">
                   <div class="carousel-content">
                     <h5>我的靜物畫牆</h5>
@@ -66,12 +99,28 @@
                 </div>
               </div>
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <a
+              class="carousel-control-prev"
+              href="#carouselExampleFade"
+              role="button"
+              data-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
               <span class="sr-only">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <a
+              class="carousel-control-next"
+              href="#carouselExampleFade"
+              role="button"
+              data-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
               <span class="sr-only">Next</span>
             </a>
           </div>
@@ -95,7 +144,7 @@ export default {
       slider03,
       slider04,
       slider05
-    }
+    };
   }
-}
+};
 </script>
