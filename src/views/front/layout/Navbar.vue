@@ -32,9 +32,15 @@
               聯絡我們
             </router-link>
           </li>
-          <li class="nav-item ml-auto">
+          <li class="nav-item">
             <router-link class="nav-link" to="/order">
               訂單查詢
+            </router-link>
+          </li>
+          <li class="nav-item ml-auto">
+            <router-link class="nav-link" to="/cart">
+              <i class="fa fa-shopping-cart show-991"></i>
+              <span class="hide-991">購物車</span>
             </router-link>
           </li>
         </ul>
@@ -92,7 +98,7 @@ export default {
         $("nav.navbar").removeClass("active");
       }
     });
-  },
+  }
   // methods: {
   //   signout() {
   //     document.cookie = "tokenName=;expire=;";

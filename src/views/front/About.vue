@@ -1,8 +1,9 @@
 <template>
   <div class="about">
     <div class="container">
-      <h1>關於Amber Wu</h1>
+      <h1>關於藝術家</h1>
       <hr />
+      <br />
       <div class="row">
         <div class="col-sm-6">
           <p>

@@ -1,7 +1,7 @@
 <template>
-  <div class="cart">
+  <div class="work">
     <div class="container">
-      <h1>購物車</h1>
+      <h1>作品頁</h1>
       <hr />
     </div>
   </div>
