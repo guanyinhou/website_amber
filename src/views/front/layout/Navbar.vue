@@ -100,6 +100,12 @@ export default {
     });
   },
   mounted() {
+    $(".nav-link").on("click", function() {
+      console.log("test");
+      $(this)
+        .parentsUntil("nav")
+        .removeClass("show");
+    });
     $(window).scroll(function() {
       if ($(this).scrollTop() > 300) {
         $("nav.navbar").addClass("active");
