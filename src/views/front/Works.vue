@@ -60,7 +60,7 @@ export default {
   methods: {
     addToCart(id, qty = 1) {
       this.isLoading = true;
-      const url = `${this.apiPath}/api/${this.uuid}/ec/shopping`;
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
       const cart = {
         product: id,
         quantity: qty
@@ -73,50 +73,48 @@ export default {
           this.isLoading = false;
           console.log(res);
           // eslint-disable-next-line no-undef
-          swal({
-            title: res.data.data.product.title + "已加入購物車",
-            icon: "success",
-            buttons: false,
-            timer: 3000
-          });
+          this.$bus.$emit(
+            "message:push",
+            res.data.data.product.title + "已加入購物車",
+            "success"
+          );
           this.$bus.$emit("get-cart-num");
           // $("#modal").modal("hide");
           // this.getCart();
         })
         .catch(err => {
           this.isLoading = false;
-          console.log(err);
-          console.log(err.response);
-          console.log(err.response.data.errors[0]);
+          // console.log(err);
+          // console.log(err.response);
+          console.dir(err.response.data.errors[0]);
           // alert(err.response.data.errors[0]);
           // eslint-disable-next-line no-undef
-          swal({
-            title: err.response.data.errors[0],
-            icon: "info",
-            buttons: false,
-            timer: 3000
-          });
+          this.$bus.$emit(
+            "message:push",
+            err.response.data.errors[0],
+            "danger"
+          );
           // $("#modal").modal("hide");
         });
     },
-    getCart() {
-      this.isLoading = true;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
+    // getCart() {
+    //   this.isLoading = true;
+    //   const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
 
-      this.$http
-        .get(url)
-        .then(res => {
-          this.isLoading = false;
-          console.log(res);
-          this.carts = res.data.data;
-          // this.cartNum = res.data.data.length;
-          this.cartTotal = 0;
-          this.updateCartTotal();
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
+    //   this.$http
+    //     .get(url)
+    //     .then(res => {
+    //       this.isLoading = false;
+    //       console.log(res);
+    //       this.carts = res.data.data;
+    //       // this.cartNum = res.data.data.length;
+    //       this.cartTotal = 0;
+    //       this.updateCartTotal();
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     });
+    // },
     updateCartTotal() {
       this.carts.forEach(item => {
         this.cartTotal += item.product.price * item.quantity;
@@ -141,7 +139,7 @@ export default {
   },
   created() {
     this.getProds();
-    this.getCart();
+    // this.getCart();
   }
 };
 </script>

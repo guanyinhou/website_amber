@@ -4,6 +4,15 @@
 html{
     height: 100%;
 }
+.btn{
+    background-color: #000;
+    color: #fff;
+    transition: all .4s;
+    &:hover{
+        background-color: #fff;
+        color: #000;
+    }
+}
 hr{
     border-color: #ddd;
 }
@@ -50,6 +59,9 @@ hr{
             .about, .works, .contact, .order, .cart, .work{
                 padding-bottom: 100px;
                 padding-top: 200px;
+                @media(max-width: 767px){
+                    padding-top: 100px;
+                }
             }
             .works{
                 .prod-list {
@@ -129,6 +141,9 @@ hr{
             right: 20px;
             min-width: 300px;
             z-index: 11111;
+            .toast-body{
+                color: #000;
+            }
         }
         .alert-color{
             display: inline-block;
@@ -142,6 +157,9 @@ hr{
             height: 100px;
             @media(max-width: 991px){
                 height: auto;
+                &.navbar-top.active{
+                    height: auto;
+                }
             }
             // background: linear-gradient(rgba(27,27,27,1), rgba(27,27,27,0));
             background-color: rgba(27,27,27,0.95);
@@ -163,10 +181,124 @@ hr{
                         }
                     }
                 }
+                .nav-item.ml-auto{
+                    .nav-link{
+                        position: relative;
+                        margin-right: 20px;
+                        .badge{
+                            position: absolute;
+                            top: 0;
+                            right: -8px;
+                            @media(max-width: 991px){
+                                top: 12px;
+                                right: auto;
+                                left: 55px;
+                            }
+                        }
+                    }
+                }
             }
             &.active{
                 background-color: rgba(27, 27, 27, 0.9);
                 height: 56px;
+            }
+        }
+        .cart{
+            .float-right{
+                line-height: 48px;
+            }
+            .cart-area{
+                table{
+                    td{
+                        vertical-align: middle;
+                        color: #fff;
+                        img{
+                            width: 200px;
+                        }
+                    }
+                    thead{
+                        @media(max-width: 767px){
+                            display: none;
+                        }
+                        tr{
+                            th{
+                                white-space: nowrap;
+                                color: #fff;
+                                border: 0;
+                            }
+                        }
+                    }
+                    tbody{
+                        @media(max-width: 767px){
+                            tr{
+                                display: block;
+                                clear: both;
+                                width: 100%;
+                                position: relative;
+                                border: 1px solid #ddd;
+                                margin-bottom: 30px;
+                                td{
+                                    vertical-align: top;
+                                    border-top: 0;
+                                }
+                                .trash{
+                                    position: absolute;
+                                    display: inline-block;
+                                    right: 10px;
+                                    padding: 0;
+                                    top: 10px;
+                                }
+                                .name{
+                                    display: inline-block;
+                                }
+                                .img{
+                                    display: inline-block;
+                                    width: 100%;
+                                    text-align: center;
+                                }
+                                .calc{
+                                    display: inline-block;
+                                }
+                                .unit{
+                                    display: inline-block;
+                                }
+                                .prod-price{
+                                    display: inline-block;
+                                }
+                            }
+                        }
+                        @media(max-width: 479px){
+                            .unit, .prod-price{
+                                width: 50%;
+                                text-align: center;
+                            }
+                        }
+                        .prod-price{
+                            white-space: nowrap;
+                        }
+                    }
+                    tfoot{
+                        display: block;
+                        @media(max-width: 767px){
+                            display: inline-block;
+                            position: absolute;
+                            right: 13%;
+                            bottom: 262px;
+                            width: 40%;
+                            tr{
+                                display: block;
+                                td{
+                                    border-top: 0;
+                                    width: 50%;
+                                    display: inline-block;
+                                }
+                            }
+                        }
+                        @media(max-width: 479px){
+                            width: 45%;
+                        }
+                    }
+                }
             }
         }
         .about{
@@ -178,6 +310,46 @@ hr{
                     background-position: center;
                     .carousel-caption{
                         background-color: rgba(0,0,0,.3);
+                    }
+                }
+            }
+        }
+        .work{
+            .prod-zone {
+                margin-bottom: 60px;
+                .prod-origin-price {
+                    font-size: 20px;
+                    color: #000;
+                    &.old-price{
+                      text-decoration: line-through;
+                      color: #aaa;
+                    }
+                }
+                .prod-price {
+                    color: red;
+                }
+                .add-to-cart{
+                    margin-top: 30px;
+                    margin-bottom: 30px;
+                }
+                .prod-img{
+                    text-align: center;
+                    img{
+                        @media(max-width: 479px){
+                            width: 100%;
+                        }
+                    }
+                }
+                .prod-content {
+                    text-align: left;
+                    margin-bottom: 50px;
+                    .sub-title {
+                        display: block;
+                        border-bottom: 1px solid #ddd;
+                        margin-bottom: 15px;
+                        padding-bottom: 5px;
+                        font-weight: bold;
+                        font-size: 18px;
                     }
                 }
             }
@@ -226,6 +398,12 @@ hr{
                             left: 50%;
                             transform: translate(-50%,-50%);
                             color: #000;
+                            @media(max-width: 479px){
+                                h1{
+                                    font-size: 29px;
+                                    line-height: 40px;
+                                }
+                            }
                         }
                     }
                 }
@@ -297,10 +475,14 @@ hr{
             }
             .creator{
                 margin-top: 30px;
+                @media(max-width: 767px){
+                    margin-bottom: 60px;
+                }
                 .creator-img{
                     margin-bottom: 30px;
                     img{
                         border-radius: 100%;
+                        max-width: 100%;
                     }
                 }
                 .creator-name{
@@ -309,6 +491,10 @@ hr{
                         padding: 0 50px;
                         padding-bottom: 10px;
                         border-bottom: 1px solid #ddd;
+                        @media(max-width: 767px){
+                            padding-left: 0;
+                            padding-right: 0;
+                        }
                     }
                 }
                 .creator-info{

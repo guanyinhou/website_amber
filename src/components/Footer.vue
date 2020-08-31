@@ -1,9 +1,11 @@
 <template>
-<div>
+  <div>
     <footer>
-        <div class="container">
-            <p class="text-center">Album example is © Bootstrap, but please download and customize it for yourself!</p>
-        </div>
+      <div class="container">
+        <p class="text-center">
+          Copyright © 2020. All Rights Reserved by GuanYin Hou.
+        </p>
+      </div>
     </footer>
-</div>
+  </div>
 </template>

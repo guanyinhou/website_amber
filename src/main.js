@@ -20,7 +20,7 @@ import App from "./App.vue";
 import router from "./router";
 import currencyFilter from "./filters/currency";
 
-window.$=jquery;
+window.$ = jquery;
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);

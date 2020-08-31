@@ -5,7 +5,7 @@
       <hr />
       <br />
       <div class="row">
-        <div class="col-sm-6">
+        <div class="col-md-6">
           <p>
             嗨，您好！我叫Amber，我是一位熱情的畫家，並且從事軟體工程師的專職工作。
           </p>
@@ -19,7 +19,7 @@
             這裡是一種分享我的畫作的方式，非常感謝您對我的藝術感興趣！
           </p>
         </div>
-        <div class="col-sm-6">
+        <div class="col-md-6">
           <div
             id="carouselExampleFade"
             class="carousel slide carousel-fade"
@@ -44,7 +44,7 @@
                 }"
               >
                 <!-- <img src="../../assets/img/slider/slider01.jpg" class="d-block w-100" alt="..."> -->
-                <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-caption">
                   <div class="carousel-content">
                     <h5>在家鄉寫生</h5>
                   </div>
@@ -56,7 +56,7 @@
                   backgroundImage: 'url(' + slider02 + ')'
                 }"
               >
-                <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-caption">
                   <div class="carousel-content">
                     <h5>我的寫生畫具</h5>
                   </div>
@@ -68,7 +68,7 @@
                   backgroundImage: 'url(' + slider03 + ')'
                 }"
               >
-                <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-caption">
                   <div class="carousel-content">
                     <h5>我的寫生畫具</h5>
                   </div>
@@ -80,7 +80,7 @@
                   backgroundImage: 'url(' + slider04 + ')'
                 }"
               >
-                <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-caption">
                   <div class="carousel-content">
                     <h5>在家鄉寫生</h5>
                   </div>
@@ -92,7 +92,7 @@
                   backgroundImage: 'url(' + slider05 + ')'
                 }"
               >
-                <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-caption">
                   <div class="carousel-content">
                     <h5>我的靜物畫牆</h5>
                   </div>

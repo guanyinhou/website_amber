@@ -41,6 +41,9 @@
             <router-link class="nav-link" to="/cart">
               <i class="fa fa-shopping-cart show-991"></i>
               <span class="hide-991">購物車</span>
+              <span class="badge badge-pill badge-danger">
+                {{ cartTotalNum }}
+              </span>
             </router-link>
           </li>
         </ul>
@@ -58,38 +61,44 @@
 export default {
   data() {
     return {
-      token: "",
-      checkSuccess: false
+      // token: "",
+      // checkSuccess: false
+      carts: [],
+      cartTotalNum: 0
     };
   },
-  // created() {
-  //   this.token = document.cookie.replace(
-  //     /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
-  //     "$1"
-  //   );
+  created() {
+    // this.token = document.cookie.replace(
+    //   /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
+    //   "$1"
+    // );
 
-  //   const url = `${process.env.VUE_APP_APIPATH}/api/auth/check`;
+    // const url = `${process.env.VUE_APP_APIPATH}/api/auth/check`;
 
-  //   // Axios 預設值
-  //   this.$http.defaults.headers.common.Authorization = `Bearer ${this.token}`;
+    // // Axios 預設值
+    // this.$http.defaults.headers.common.Authorization = `Bearer ${this.token}`;
 
-  //   this.$http
-  //     .post(url, { api_token: this.token })
-  //     .then(res => {
-  //       if (!res.data.success) {
-  //         this.$router.path({
-  //           path: "login"
-  //         });
+    // this.$http
+    //   .post(url, { api_token: this.token })
+    //   .then(res => {
+    //     if (!res.data.success) {
+    //       this.$router.path({
+    //         path: "login"
+    //       });
 
-  //         this.$bus.$emit("message:push", res.data.message, "success");
-  //       }
-  //       this.checkSuccess = true;
-  //     })
-  //     .catch(err => {
-  //       console.dir(err);
-  //       this.$bus.$emit("message:push", err.message, "danger");
-  //     });
-  // },
+    //       this.$bus.$emit("message:push", res.data.message, "success");
+    //     }
+    //     this.checkSuccess = true;
+    //   })
+    //   .catch(err => {
+    //     console.dir(err);
+    //     this.$bus.$emit("message:push", err.message, "danger");
+    //   });
+    this.getCart();
+    this.$bus.$on("get-cart-num", () => {
+      this.getCart();
+    });
+  },
   mounted() {
     $(window).scroll(function() {
       if ($(this).scrollTop() > 300) {
@@ -98,12 +107,27 @@ export default {
         $("nav.navbar").removeClass("active");
       }
     });
+  },
+  methods: {
+    // signout() {
+    //   document.cookie = "tokenName=;expire=;";
+    //   window.location = "/final_work/dist/#/";
+    // }
+    getCart() {
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
+      this.$http
+        .get(url)
+        .then(res => {
+          this.carts = res.data.data;
+          this.cartTotalNum = 0;
+          this.carts.forEach(item => {
+            this.cartTotalNum += item.quantity;
+          });
+        })
+        .catch(err => {
+          console.dir(err);
+        });
+    }
   }
-  // methods: {
-  //   signout() {
-  //     document.cookie = "tokenName=;expire=;";
-  //     window.location = "/final_work/dist/#/";
-  //   }
-  // }
 };
 </script>
