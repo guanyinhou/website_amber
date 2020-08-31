@@ -10,7 +10,10 @@
           <img :src="work.imageUrl[idx]" />
         </div>
         <div class="text-center">
-          <div class="prod-origin-price" v-if="work.origin_price === work.price">
+          <div
+            class="prod-origin-price"
+            v-if="work.origin_price === work.price"
+          >
             售價 {{ work.origin_price | currency }}
           </div>
           <span v-else>
