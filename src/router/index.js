@@ -56,6 +56,54 @@ const routes = [
         component: () => import("../views/front/Order.vue")
       }
     ]
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/back/Login.vue")
+  },
+  {
+    path: "/admin",
+    name: "Back",
+    component: () => import("../views/back/layout/Nav.vue"),
+    children: [
+      {
+        name: "Dashboard",
+        path: "",
+        component: () => import("../views/back/Dashboard.vue"),
+        meta: { requiresAuth: true }
+      },
+      {
+        name: "Products",
+        path: "products",
+        component: () => import("../views/back/Products.vue"),
+        meta: { requiresAuth: true }
+      },
+      {
+        name: "Coupon",
+        path: "coupon",
+        component: () => import("../views/back/Coupon.vue"),
+        meta: { requiresAuth: true }
+      },
+      {
+        name: "Pictures",
+        path: "pictures",
+        component: () => import("../views/back/Pictures.vue"),
+        meta: { requiresAuth: true }
+      },
+      {
+        name: "Orders",
+        path: "Orders",
+        component: () => import("../views/back/Orders.vue"),
+        meta: { requiresAuth: true }
+      },
+      {
+        name: "Animate",
+        path: "animate",
+        component: () => import("../views/back/Animate.vue"),
+        meta: { requiresAuth: true }
+      }
+    ]
   }
 ];
 

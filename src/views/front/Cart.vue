@@ -2,11 +2,6 @@
   <div class="cart">
     <div class="container">
       <h1 class="d-inline-block">購物車</h1>
-      <div class="float-right" v-if="cartPageTotalNum">
-        <button class="btn" type="button" @click="rmAllCartItem">
-          <i class="fa fa-trash"></i> 刪除所有品項
-        </button>
-      </div>
       <hr />
       <div class="cart-area">
         <div class="clearfix"></div>
@@ -98,6 +93,33 @@
             </tfoot>
           </table>
         </div>
+        <div class="float-left">
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="請輸入優惠碼"
+              v-model="coupon_code"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                @click="addCoupon"
+              >
+                套用優惠碼
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="float-right" v-if="cartPageTotalNum">
+          <button class="btn first" type="button" @click="rmAllCartItem">
+            <i class="fa fa-trash"></i> 刪除所有品項
+          </button>
+          <router-link class="btn" to="checkout">
+            <i class="fa fa-check"></i> 結帳
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -113,10 +135,26 @@ export default {
       },
       carts: [],
       cartTotal: 0,
-      cartPageTotalNum: 0
+      cartPageTotalNum: 0,
+      coupon_code: ""
     };
   },
   methods: {
+    addCoupon() {
+      this.isLoading = true;
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/coupon/search`;
+      this.$http
+        .post(url, { code: this.coupon_code })
+        .then(res => {
+          this.coupon = res.data.data;
+          this.isLoading = false;
+        })
+        .catch(err => {
+          console.log(err);
+          this.$bus.$emit("message:push", "加入失敗", "danger");
+          this.isLoading = false;
+        });
+    },
     updateCartTotal() {
       this.carts.forEach(item => {
         this.cartTotal += item.product.price * item.quantity;

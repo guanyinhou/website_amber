@@ -101,7 +101,7 @@ export default {
   },
   mounted() {
     $(".nav-link").on("click", function() {
-      console.log("test");
+      // console.log("test");
       $(this)
         .parentsUntil("nav")
         .removeClass("show");
@@ -124,6 +124,7 @@ export default {
       this.$http
         .get(url)
         .then(res => {
+          console.log(res);
           this.carts = res.data.data;
           this.cartTotalNum = 0;
           this.carts.forEach(item => {

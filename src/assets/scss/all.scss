@@ -41,6 +41,19 @@ hr{
             .page-link{
                 color: #1b1b1b;
             }
+            .back{
+                background-color: #fff; 
+                min-height: 800px;
+                color: #000;
+                .navbar{
+                    a{
+                        color: #aaa;
+                        &.router-link-active{
+                            color: #fff;
+                        }
+                    }
+                }
+            }
             .page-item.active .page-link{
                 background-color: #1b1b1b;
                 border-color: #1b1b1b;
@@ -56,7 +69,7 @@ hr{
         }
         .container-fluid{
             padding-bottom: 30px;
-            .about, .works, .contact, .order, .cart, .work{
+            .about, .works, .contact, .order, .cart, .work, .ckout, .dashboard, .product-list, .coupon, .pics, .orders, .animate{
                 padding-bottom: 100px;
                 padding-top: 200px;
                 @media(max-width: 767px){
@@ -206,103 +219,133 @@ hr{
         .cart{
             .float-right{
                 line-height: 48px;
+                .btn.first{
+                    margin-right: 15px;
+                }
             }
-            .cart-area{
-                table{
+        }
+        .cart-area{
+            table{
+                text-align: center;
+                @media(max-width: 767px){
+                    position: relative;
+                }
+                td{
+                    vertical-align: middle;
+                    color: #fff;
+                    img{
+                        width: 200px;
+                    }
+                }
+                thead{
                     @media(max-width: 767px){
-                        position: relative;
+                        display: none;
                     }
-                    td{
-                        vertical-align: middle;
-                        color: #fff;
-                        img{
-                            width: 200px;
+                    tr{
+                        th{
+                            white-space: nowrap;
+                            color: #fff;
+                            border: 0;
                         }
                     }
-                    thead{
-                        @media(max-width: 767px){
-                            display: none;
-                        }
+                }
+                tbody{
+                    @media(max-width: 767px){
                         tr{
-                            th{
-                                white-space: nowrap;
-                                color: #fff;
-                                border: 0;
+                            display: block;
+                            clear: both;
+                            width: 100%;
+                            position: relative;
+                            border: 1px solid #ddd;
+                            margin-bottom: 30px;
+                            td{
+                                vertical-align: top;
+                                border-top: 0;
                             }
-                        }
-                    }
-                    tbody{
-                        @media(max-width: 767px){
-                            tr{
-                                display: block;
-                                clear: both;
+                            .trash{
+                                position: absolute;
+                                display: inline-block;
+                                right: 10px;
+                                padding: 0;
+                                top: 10px;
+                            }
+                            .name{
+                                display: inline-block;
+                            }
+                            .img{
+                                display: inline-block;
                                 width: 100%;
-                                position: relative;
-                                border: 1px solid #ddd;
-                                margin-bottom: 30px;
-                                td{
-                                    vertical-align: top;
-                                    border-top: 0;
-                                }
-                                .trash{
-                                    position: absolute;
-                                    display: inline-block;
-                                    right: 10px;
-                                    padding: 0;
-                                    top: 10px;
-                                }
-                                .name{
-                                    display: inline-block;
-                                }
-                                .img{
-                                    display: inline-block;
-                                    width: 100%;
-                                    text-align: center;
-                                }
-                                .calc{
-                                    display: inline-block;
-                                }
-                                .unit{
-                                    display: inline-block;
-                                }
-                                .prod-price{
-                                    display: inline-block;
-                                }
-                            }
-                        }
-                        @media(max-width: 479px){
-                            .calc{
-                                width: 100%;
-                            }
-                            .unit, .prod-price{
-                                width: 50%;
                                 text-align: center;
                             }
-                        }
-                        .prod-price{
-                            white-space: nowrap;
-                        }
-                    }
-                    tfoot{
-                        @media(max-width: 767px){
-                            display: inline-block;
-                            position: absolute;
-                            right: 13%;
-                            bottom: 31px;
-                            width: 40%;
-                            tr{
-                                display: block;
-                                td{
-                                    border-top: 0;
-                                    width: 50%;
-                                    display: inline-block;
-                                }
+                            .calc{
+                                display: inline-block;
+                            }
+                            .unit{
+                                display: inline-block;
+                            }
+                            .prod-price{
+                                display: inline-block;
                             }
                         }
-                        @media(max-width: 479px){
-                            width: 45%;
+                    }
+                    @media(max-width: 479px){
+                        .calc{
+                            width: 100%;
+                        }
+                        .unit, .prod-price{
+                            width: 50%;
+                            text-align: center;
                         }
                     }
+                    .prod-price{
+                        white-space: nowrap;
+                    }
+                }
+                tfoot{
+                    @media(max-width: 767px){
+                        display: inline-block;
+                        position: absolute;
+                        right: 13%;
+                        bottom: 31px;
+                        width: 40%;
+                        tr{
+                            display: block;
+                            td{
+                                border-top: 0;
+                                width: 50%;
+                                display: inline-block;
+                            }
+                        }
+                    }
+                    @media(max-width: 479px){
+                        width: 45%;
+                    }
+                }
+            }
+        }
+        .login{
+            .form-signin{
+                margin-bottom: 100px;
+            }
+        }
+        .pics{
+            img{
+                width: 150px;
+            }
+        }
+        .product-list{
+            .list-img{
+                position: relative;
+                width: 150px;
+                height: 150px;
+                img{
+                    max-width: 100%;
+                    max-height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: auto;
+                    height: auto;
                 }
             }
         }
