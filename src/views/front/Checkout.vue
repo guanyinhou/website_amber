@@ -170,7 +170,7 @@
                 ></textarea>
               </div>
               <div class="text-center">
-                <button class="btn btn-info" type="submit" :disabled="invalid">
+                <button class="btn btn" type="submit" :disabled="invalid">
                   送出表單
                 </button>
               </div>

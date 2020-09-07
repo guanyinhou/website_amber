@@ -96,6 +96,15 @@ hr {
 
 * body .container-fluid {
   padding-bottom: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+@media (max-width: 480px) {
+  * body .container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 }
 
 * body .container-fluid .about, * body .container-fluid .works, * body .container-fluid .contact, * body .container-fluid .order, * body .container-fluid .cart, * body .container-fluid .work, * body .container-fluid .ckout, * body .container-fluid .dashboard, * body .container-fluid .product-list, * body .container-fluid .coupon, * body .container-fluid .pics, * body .container-fluid .orders, * body .container-fluid .animate {
@@ -107,19 +116,20 @@ hr {
 
 * body .container-fluid .about .container, * body .container-fluid .works .container, * body .container-fluid .contact .container, * body .container-fluid .order .container, * body .container-fluid .cart .container, * body .container-fluid .work .container, * body .container-fluid .ckout .container, * body .container-fluid .dashboard .container, * body .container-fluid .product-list .container, * body .container-fluid .coupon .container, * body .container-fluid .pics .container, * body .container-fluid .orders .container, * body .container-fluid .animate .container {
   padding: 50px 50px 100px 50px;
-  background-color: rgba(0, 0, 0, 0.35);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(66%, rgba(0, 0, 0, 0.35)), to(rgba(150, 150, 150, 0.35)));
+  background: linear-gradient(rgba(0, 0, 0, 0.35) 66%, rgba(150, 150, 150, 0.35));
   border-radius: 10px;
 }
 
 @media (max-width: 768px) {
   * body .container-fluid .about .container, * body .container-fluid .works .container, * body .container-fluid .contact .container, * body .container-fluid .order .container, * body .container-fluid .cart .container, * body .container-fluid .work .container, * body .container-fluid .ckout .container, * body .container-fluid .dashboard .container, * body .container-fluid .product-list .container, * body .container-fluid .coupon .container, * body .container-fluid .pics .container, * body .container-fluid .orders .container, * body .container-fluid .animate .container {
-    padding: 30px;
+    padding: 30px 30px 150px 30px;
   }
 }
 
 @media (max-width: 480px) {
   * body .container-fluid .about .container, * body .container-fluid .works .container, * body .container-fluid .contact .container, * body .container-fluid .order .container, * body .container-fluid .cart .container, * body .container-fluid .work .container, * body .container-fluid .ckout .container, * body .container-fluid .dashboard .container, * body .container-fluid .product-list .container, * body .container-fluid .coupon .container, * body .container-fluid .pics .container, * body .container-fluid .orders .container, * body .container-fluid .animate .container {
-    padding: 20px;
+    padding: 20px 20px 150px 20px;
   }
 }
 
@@ -231,6 +241,12 @@ hr {
   color: #424242;
 }
 
+@media (max-width: 768px) {
+  * body .container-fluid .works .prod-list li .add-to-cart {
+    display: block;
+  }
+}
+
 * body .container-fluid .works .prod-list li a:hover {
   text-decoration: none;
 }
@@ -276,10 +292,23 @@ hr {
   right: 20px;
   min-width: 300px;
   z-index: 11111;
+  background-color: rgba(10, 10, 10, 0.85);
+}
+
+@media (max-width: 479px) {
+  * body .toast-outer {
+    min-width: 280px;
+  }
+}
+
+* body .toast-outer .toast-header {
+  background-color: rgba(10, 10, 10, 0.9);
+  color: #fff;
 }
 
 * body .toast-outer .toast-body {
-  color: #000;
+  color: #fff;
+  background-color: rgba(10, 10, 10, 0.8);
 }
 
 * body .alert-color {
@@ -363,6 +392,7 @@ hr {
 @media (max-width: 767px) {
   * body .cart-area table {
     position: relative;
+    margin-bottom: 0;
   }
 }
 

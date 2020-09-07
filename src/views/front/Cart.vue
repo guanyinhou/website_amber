@@ -3,7 +3,7 @@
     <div class="container">
       <h1 class="d-inline-block">購物車</h1>
       <hr />
-      <div class="cart-area">
+      <div class="cart-area" v-if="cartPageTotalNum">
         <div class="clearfix"></div>
         <div class="table-responsive">
           <table class="table">
@@ -112,7 +112,7 @@
             </div>
           </div>
         </div>
-        <div class="float-right" v-if="cartPageTotalNum">
+        <div class="float-right">
           <button class="btn first" type="button" @click="rmAllCartItem">
             <i class="fa fa-trash"></i> 刪除所有品項
           </button>
@@ -120,6 +120,12 @@
             <i class="fa fa-check"></i> 結帳
           </router-link>
         </div>
+      </div>
+      <div class="cont-shop text-center" v-else>
+        <br />
+        <p>購物車是空的</p>
+        <br />
+        <router-link to="/works" class="btn">繼續購物</router-link>
       </div>
     </div>
   </div>
