@@ -9,15 +9,39 @@
           <div class="prod-cate">
             <h4>作品分類</h4>
             <ul>
-              <li><a href="#" :class="{active: isAll}" @click.prevent="getAll">全部</a></li>
-              <li><a href="#" :class="{active: isLand}" @click.prevent="getLand()">風景畫</a></li>
-              <li><a href="#" :class="{active: isSea}" @click.prevent="getSea()">海景畫</a></li>
+              <li>
+                <a href="#" :class="{ active: isAll }" @click.prevent="getAll">
+                  全部
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  :class="{ active: isLand }"
+                  @click.prevent="getLand()"
+                >
+                  風景畫
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  :class="{ active: isSea }"
+                  @click.prevent="getSea()"
+                >
+                  海景畫
+                </a>
+              </li>
             </ul>
           </div>
         </div>
         <div class="col-sm-9">
           <ul class="row prod-list">
-            <li v-for="prod in prods" :key="prod.id" class="col-md-3 col-sm-6 col-6 full-479">
+            <li
+              v-for="prod in prods"
+              :key="prod.id"
+              class="col-md-3 col-sm-6 col-6 full-479"
+            >
               <router-link :to="`/product/${prod.id}`">
                 <div class="prod-image">
                   <img :src="prod.imageUrl[0]" :alt="prod.title" />
@@ -27,19 +51,22 @@
                   class="prod-origin-price"
                   v-if="prod.origin_price === prod.price"
                 >
-                  售價&nbsp;&nbsp;&nbsp;&nbsp;{{ prod.origin_price | currency }}
+                  售價 {{ prod.origin_price | currency }}
                 </div>
                 <span v-else>
                   <div class="prod-origin-price old-price">
-                    售價&nbsp;&nbsp;&nbsp;&nbsp;
-                    {{ prod.origin_price | currency }}
+                    售價 {{ prod.origin_price | currency }}
                   </div>
                   <div class="prod-price">
-                    <b>特價&nbsp;&nbsp;&nbsp;&nbsp;{{ prod.price | currency }}</b>
+                    <b>特價 {{ prod.price | currency }}</b>
                   </div>
                 </span>
               </router-link>
-              <a href="#" class="add-to-cart" @click.prevent="addToCart(prod.id)">
+              <a
+                href="#"
+                class="add-to-cart"
+                @click.prevent="addToCart(prod.id)"
+              >
                 <i class="fa fa-cart-plus"></i>
               </a>
             </li>
