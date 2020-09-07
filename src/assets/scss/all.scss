@@ -36,8 +36,21 @@ hr{
             min-height: 100%;
             padding-bottom: 84px;
             box-sizing: border-box;
-            background-color: #424242;
+            background-color: #242424;
             color: #fff;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: top;
+            &::after{
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                background-color: rgba(0,0,0,0.65);
+                content: "";
+                z-index: 0;
+            }
             .page-link{
                 color: #1b1b1b;
             }
@@ -69,9 +82,13 @@ hr{
         }
         .container-fluid{
             padding-bottom: 30px;
+            padding-left: 0;
+            padding-right: 0;
             .about, .works, .contact, .order, .cart, .work, .ckout, .dashboard, .product-list, .coupon, .pics, .orders, .animate{
                 padding-bottom: 100px;
                 padding-top: 200px;
+                z-index: 1;
+                position: relative;
                 @media(max-width: 768px){
                     padding-top: 100px;
                 }
@@ -105,10 +122,10 @@ hr{
                                 text-decoration: none;
                                 padding: 10px;
                                 display: block;
-                                border-bottom: 1px solid #424242;
+                                border-bottom: 1px solid #242424;
                                 &:hover,&.active{
                                     color: #fff;
-                                    background-color: #424242;
+                                    background-color: #242424;
                                     font-size: 20px;
                                     font-weight: bold;
                                 }
@@ -146,13 +163,13 @@ hr{
                         border-radius: 40px;
                         right: 15px;
                         bottom: 20px;
-                        background-color: #6d6d6d;
+                        background-color: #424242;
                         color: #fff;
-                        border: 2px solid #6d6d6d;
+                        border: 2px solid #424242;
                         transition: all 0.4s;
                         &:hover {
                           background-color: #fff;
-                          color: #6d6d6d;
+                          color: #424242;
                         }
                       }
                       a {
@@ -219,7 +236,7 @@ hr{
                 }
             }
             // background: linear-gradient(rgba(27,27,27,1), rgba(27,27,27,0));
-            background-color: rgba(27,27,27,0.95);
+            background-color: rgba(27,27,27,0.9);
             transition: all 0.6s;
             .navbar-nav{
                 width: 100%;
@@ -513,7 +530,7 @@ hr{
             }
         }
         footer{
-            background-color: #6d6d6d;
+            background-color: #181818;
             position: absolute;
             width: 100%;
             bottom: 0;
@@ -563,6 +580,11 @@ hr{
             }
         }
         .order{
+            .form-signin{
+                input{
+                    margin-top: 30px;
+                }
+            }
             .order-result{
                 display: none;
                 &.active{
@@ -570,6 +592,12 @@ hr{
                 }
                 table{
                     width: 100%;
+                    th{
+                        white-space: nowrap;
+                    }
+                    th, td{
+                        padding: 15px;
+                    }
                 }
             }
         }
@@ -587,6 +615,7 @@ hr{
                     img{
                         border-radius: 100%;
                         max-width: 100%;
+                        border: 2px solid #ddd;
                     }
                 }
                 .creator-name{

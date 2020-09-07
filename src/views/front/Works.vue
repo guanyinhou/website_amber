@@ -205,11 +205,7 @@ export default {
           let obj = JSON.parse(JSON.stringify(this.prods));
           // let land = JSON.parse(JSON.stringify(this.prods));
           // let sea = JSON.parse(JSON.stringify(this.prods));
-          obj = this.prods.filter(item => {
-            // console.log(item);
-            return item.category === "風景";
-            // return item.origin_price === 4709;
-          });
+          obj = this.prods.filter(item => item.category === "風景");
           // console.log(land);
           this.prods = obj;
         })

@@ -4,48 +4,67 @@
     <div class="container">
       <h1>訂單查詢</h1>
       <hr />
+      <p>請依序在下方欄位中填寫訂單查詢所需資料：</p>
       <div class="text-center">
-        <form class="form-signin" @submit.prevent.enter="searchOrder(order)">
-          <br />
-          <br />
-          <br />
-          <br />
-          <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-              <!-- <input
-                type="email"
-                class="form-control"
-                placeholder="E-mail"
-                v-model="order.email"
-                required
-              />
-              <br /> -->
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Order Number"
-                v-model="order.id"
-                required
-              />
-            </div>
-            <div class="col-sm-4"></div>
-          </div>
-          <br />
-          <br />
-          <br />
-          <div class="btn-zone">
-            <button class="btn" type="submit">送出查詢</button>
+        <validation-observer v-slot="{ invalid }">
+          <form class="form-signin" @submit.prevent.enter="searchOrder(order)">
             <br />
-          </div>
-        </form>
+            <br />
+            <div class="row">
+              <div class="col-sm-4"></div>
+              <div class="col-sm-4">
+                <validation-provider
+                  v-slot="{ errors, classes }"
+                  rules="required"
+                >
+                  <input
+                    type="email"
+                    name="Email"
+                    class="form-control"
+                    placeholder="E-mail"
+                    v-model="order.email"
+                    :classes="classes"
+                    required
+                  />
+                  <span class="text-danger">{{ errors[0] }}</span>
+                </validation-provider>
+                <br />
+                <validation-provider
+                  v-slot="{ errors, classes }"
+                  rules="required"
+                >
+                  <input
+                    type="text"
+                    name="Order Number"
+                    class="form-control"
+                    placeholder="Order Number"
+                    v-model="order.id"
+                    :classes="classes"
+                    required
+                  />
+                  <span class="text-danger">{{ errors[0] }}</span>
+                </validation-provider>
+              </div>
+              <div class="col-sm-4"></div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <div class="btn-zone">
+              <button class="btn" type="submit" :disabled="invalid">
+                送出查詢
+              </button>
+              <br />
+            </div>
+          </form>
+        </validation-observer>
         <div class="order-result" :class="{ active: resultShow }">
           <br />
           <br />
           <br />
           <hr />
           <br />
-          <table class="table-hover table-bordered">
+          <table class="table-bordered">
             <thead>
               <tr>
                 <th>訂單編號</th>
@@ -59,8 +78,9 @@
               <tr>
                 <td>{{ result.id }}</td>
                 <td>{{ result.created.datetime }}</td>
-                <td>{{ result.amount }}</td>
-                <td>{{ result.paid }}</td>
+                <td>{{ result.amount | currency }}</td>
+                <td v-if="result.paid">已付款</td>
+                <td v-else>未付款</td>
                 <td>
                   <a href="">詳細</a>
                 </td>
@@ -101,25 +121,26 @@ export default {
       // const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/orders`;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/orders/${order.id}`;
       console.log(url);
-      // if (order.email === orders[]) {
       this.$http
         .get(url)
         .then(res => {
           this.isLoading = false;
           this.result = res.data.data;
           console.log(this.result);
-          // order.forEach(ele => {
-          //   console.log(ele);
-          // });
-          // this.$router.push(`./order/${order.id}`);
-          this.order.id = "";
-          this.resultShow = true;
+          let userEmail = this.result.user.email;
+          if (order.email === userEmail) {
+            // order.forEach(ele => {
+            //   console.log(ele);
+            // });
+            // this.$router.push(`./order/${order.id}`);
+            this.order.id = "";
+            this.resultShow = true;
+          }
         })
         .catch(err => {
           this.isLoading = false;
           console.dir(err);
         });
-      // }
     }
   }
 };
