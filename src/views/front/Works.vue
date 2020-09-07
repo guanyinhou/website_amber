@@ -40,7 +40,7 @@
             <li
               v-for="prod in prods"
               :key="prod.id"
-              class="col-md-3 col-sm-6 col-6 full-479"
+              class="col-lg-3 col-md-4 col-sm-6 col-6 full-479"
             >
               <router-link :to="`/product/${prod.id}`">
                 <div class="prod-image">
