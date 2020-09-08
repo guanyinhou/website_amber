@@ -164,9 +164,11 @@ export default {
         this.cartTotal += item.product.price * item.quantity;
       });
     },
-    getProds(page = 1) {
+    // getProds(page = 1) {
+    getProds() {
       this.isLoading = true;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?page=${page}`;
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?paged=28`;
+      // const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?page=${page}`;
       this.$http
         .get(url)
         .then(res => {
@@ -192,7 +194,7 @@ export default {
       this.isAll = false;
       this.isLand = true;
       this.isSea = false;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products`;
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?paged=40`;
       this.$http
         .get(url)
         .then(res => {
@@ -220,7 +222,7 @@ export default {
       this.isAll = false;
       this.isLand = false;
       this.isSea = true;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products`;
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?paged=40`;
       this.$http
         .get(url)
         .then(res => {
