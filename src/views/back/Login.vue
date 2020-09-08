@@ -2,7 +2,7 @@
   <div class="login">
     <loading :active.sync="isLoading"></loading>
     <div class="text-center">
-      <img src="../../assets/logo.png" alt="" />
+      <h1 class="theme">The Art of Amber Wu</h1>
       <h1>後臺登入</h1>
       <div class="container">
         <div class="text-center">

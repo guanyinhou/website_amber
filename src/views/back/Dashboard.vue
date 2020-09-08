@@ -6,3 +6,9 @@
     </div>
   </div>
 </template>
+
+<style lang="scss">
+#app::after {
+  background-color: #fff !important;
+}
+</style>

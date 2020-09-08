@@ -47,7 +47,7 @@ hr{
                 bottom: 0;
                 right: 0;
                 left: 0;
-                background-color: rgba(0,0,0,0.65);
+                background-color: rgba(0,0,0,0.35);
                 content: "";
                 z-index: 0;
             }
@@ -88,7 +88,18 @@ hr{
                 padding-left: 15px;
                 padding-right: 15px;
             }
-            .about, .works, .contact, .order, .cart, .work, .ckout, .dashboard, .product-list, .coupon, .pics, .orders, .animate{
+            .about,
+            .works,
+            .contact,
+            .order,
+            .cart,
+            .work,
+            .ckout,
+            .product-list,
+            .coupon,
+            .pics,
+            .orders,
+            .animate{
                 padding-bottom: 100px;
                 padding-top: 200px;
                 z-index: 1;
@@ -107,6 +118,12 @@ hr{
                 @media(max-width: 768px){
                     padding-top: 100px;
                 }
+            }
+            .dashboard{
+                padding-bottom: 100px;
+                padding-top: 200px;
+                z-index: 1;
+                position: relative;
             }
             .works{
                 @media(max-width: 480px){
@@ -201,6 +218,7 @@ hr{
                           position: relative;
                           width: 100%;
                           padding-top: 100%;
+                          margin-bottom: 10px;
                           img {
                             position: absolute;
                             height: 100%;
@@ -416,6 +434,15 @@ hr{
             }
         }
         .login{
+            padding-bottom: 100px;
+            padding-top: 100px;
+            z-index: 1;
+            position: relative;
+            .theme{
+                font-family: fantasy;
+                font-weight: bold;
+                font-size: 3.5rem;
+            }
             .form-signin{
                 margin-bottom: 100px;
             }
@@ -516,10 +543,10 @@ hr{
                     &.cover.active{
                         .carousel-caption{
                             background-color: #1b1b1b;
-                            h1{
-                                font-family: revert;
-                                color: #fff;
-                            }
+                            // h1{
+                            //     font-family: revert;
+                            //     color: #fff;
+                            // }
                         }
                     }
                     .carousel-caption{
@@ -539,10 +566,13 @@ hr{
                             left: 50%;
                             transform: translate(-50%,-50%);
                             color: #000;
-                            @media(max-width: 479px){
-                                h1{
-                                    font-size: 29px;
-                                    line-height: 40px;
+                            h1{
+                                font-family: fantasy;
+                                font-weight: bold;
+                                font-size: 3.5rem;
+                                color: #fff;
+                                @media(max-width: 479px){
+                                    font-size: 2.5rem;
                                 }
                             }
                         }
@@ -557,7 +587,13 @@ hr{
         }
         .navbar-dark{
             .navbar-brand{
-                color: rgba(255, 255, 255, 0.8);
+                font-family: fantasy;
+                font-size: 26px;
+                // color: rgba(255, 255, 255, 0.8);
+                padding: 0;
+                @media(max-width: 991px){
+                    margin-right: 0;
+                }
             }
         }
         footer{
