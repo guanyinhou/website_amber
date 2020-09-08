@@ -116,13 +116,9 @@
           <button class="btn first" type="button" @click="rmAllCartItem">
             <i class="fa fa-trash"></i> 刪除所有品項
           </button>
-          <a href="
-https://core.newebpay.com/EPG/amberwu/SW16Md" class="btn">
+          <router-link class="btn" to="checkout">
             <i class="fa fa-check"></i> 結帳
-          </a>
-          <!-- <router-link class="btn" to="checkout">
-            <i class="fa fa-check"></i> 結帳
-          </router-link> -->
+          </router-link>
         </div>
       </div>
       <div class="cont-shop text-center" v-else>
