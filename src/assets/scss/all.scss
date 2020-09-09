@@ -267,7 +267,7 @@ hr{
             z-index: 11111;
             // background-color: rgba(10,10,10,0.85);
             border-radius: 0.25rem;
-            @media(max-width: 575.98){
+            @media(max-width: 575.98px){
                 min-width: 280px;
             }
             .toast{
@@ -431,7 +431,7 @@ hr{
                             }
                         }
                     }
-                    @media(max-width: 575.98){
+                    @media(max-width: 575.98px){
                         .calc{
                             width: 100%;
                         }
@@ -460,7 +460,7 @@ hr{
                             }
                         }
                     }
-                    @media(max-width: 575.98){
+                    @media(max-width: 575.98px){
                         width: 45%;
                     }
                 }
@@ -539,7 +539,7 @@ hr{
                 .prod-img{
                     text-align: center;
                     img{
-                        @media(max-width: 575.98){
+                        @media(max-width: 575.98px){
                             width: 100%;
                         }
                     }
@@ -607,7 +607,7 @@ hr{
                                 font-weight: bold;
                                 font-size: 3.5rem;
                                 color: #fff;
-                                @media(max-width: 575.98){
+                                @media(max-width: 575.98px){
                                     font-size: 2.5rem;
                                 }
                             }
