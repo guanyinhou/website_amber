@@ -69,6 +69,17 @@
               >
                 <i class="fa fa-cart-plus"></i>
               </a>
+              <a
+                href="#"
+                class="add-to-favorite"
+                @click.prevent="updateFavorite(prod.id)"
+              >
+                <i
+                  class="fa fa-heart-o"
+                  v-if="favorited.indexOf(prod.id) === -1"
+                ></i>
+                <i class="fa fa-heart text-danger" v-else></i>
+              </a>
             </li>
           </ul>
         </div>
@@ -98,10 +109,16 @@ export default {
       pagination: {},
       isAll: true,
       isLand: false,
-      isSea: false
+      isSea: false,
+      favorited: JSON.parse(localStorage.getItem("favoriteList")) || []
+      // id: ""
     };
   },
   methods: {
+    updateFavorite(id) {
+      console.log(id);
+      this.$bus.$emit("get-favorite-num:favorited", id);
+    },
     addToCart(id, qty = 1) {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
@@ -120,7 +137,7 @@ export default {
           this.$bus.$emit(
             "message:push",
             res.data.data.product.title + "已加入購物車",
-            "success"
+            "info"
           );
           this.$bus.$emit("get-cart-num");
           // $("#modal").modal("hide");
@@ -141,33 +158,15 @@ export default {
           // $("#modal").modal("hide");
         });
     },
-    // getCart() {
-    //   this.isLoading = true;
-    //   const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
-
-    //   this.$http
-    //     .get(url)
-    //     .then(res => {
-    //       this.isLoading = false;
-    //       console.log(res);
-    //       this.carts = res.data.data;
-    //       // this.cartNum = res.data.data.length;
-    //       this.cartTotal = 0;
-    //       this.updateCartTotal();
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //     });
+    // updateCartTotal() {
+    //   this.carts.forEach(item => {
+    //     this.cartTotal += item.product.price * item.quantity;
+    //   });
     // },
-    updateCartTotal() {
-      this.carts.forEach(item => {
-        this.cartTotal += item.product.price * item.quantity;
-      });
-    },
     // getProds(page = 1) {
-    getProds() {
+    getProds(page = 1) {
       this.isLoading = true;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?paged=28`;
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?page=${page}&paged=28`;
       // const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?page=${page}`;
       this.$http
         .get(url)

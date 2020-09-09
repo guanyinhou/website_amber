@@ -37,15 +37,27 @@
               訂單查詢
             </router-link>
           </li>
-          <li class="nav-item ml-auto">
-            <router-link class="nav-link" to="/cart">
-              <i class="fa fa-shopping-cart show-991"></i>
-              <span class="hide-991">購物車</span>
-              <span class="badge badge-pill badge-danger">
-                {{ cartTotalNum }}
-              </span>
-            </router-link>
-          </li>
+          <span class="ml-auto d-flex">
+            <li class="nav-item">
+              <router-link class="nav-link" to="/favorite">
+                <i class="fa fa-heart show-991"></i>
+                <span class="hide-991">我的最愛</span>
+                <FavoriteNum />
+                <!-- <span class="badge badge-pill badge-danger">
+                  {{ favoriteTotalNum }}
+                </span> -->
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/cart">
+                <i class="fa fa-shopping-cart show-991"></i>
+                <span class="hide-991">購物車</span>
+                <span class="badge badge-pill badge-danger">
+                  {{ cartTotalNum }}
+                </span>
+              </router-link>
+            </li>
+          </span>
         </ul>
       </div>
     </nav>
@@ -58,42 +70,21 @@
 
 <script>
 /* global $ */
+import FavoriteNum from "@/components/FavoriteNum.vue";
 export default {
+  components: {
+    FavoriteNum
+  },
   data() {
     return {
       // token: "",
       // checkSuccess: false
+      prods: [],
       carts: [],
       cartTotalNum: 0
     };
   },
   created() {
-    // this.token = document.cookie.replace(
-    //   /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
-    //   "$1"
-    // );
-
-    // const url = `${process.env.VUE_APP_APIPATH}/api/auth/check`;
-
-    // // Axios 預設值
-    // this.$http.defaults.headers.common.Authorization = `Bearer ${this.token}`;
-
-    // this.$http
-    //   .post(url, { api_token: this.token })
-    //   .then(res => {
-    //     if (!res.data.success) {
-    //       this.$router.path({
-    //         path: "login"
-    //       });
-
-    //       this.$bus.$emit("message:push", res.data.message, "success");
-    //     }
-    //     this.checkSuccess = true;
-    //   })
-    //   .catch(err => {
-    //     console.dir(err);
-    //     this.$bus.$emit("message:push", err.message, "danger");
-    //   });
     this.getCart();
     this.$bus.$on("get-cart-num", () => {
       this.getCart();

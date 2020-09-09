@@ -26,7 +26,14 @@
           </span>
           <div class="add-to-cart">
             <button class="btn" @click="addToCart(work.id)">
-              加入購物車
+              <i class="fa fa-cart-plus"></i> 加入購物車
+            </button>
+            <button class="btn" @click="updateFavorite(work.id)">
+              <i
+                class="fa fa-heart-o"
+                v-if="favorited.indexOf(work.id) === -1"
+              ></i>
+              <i class="fa fa-heart text-danger" v-else></i> 加入我的最愛
             </button>
           </div>
         </div>
@@ -47,7 +54,8 @@
 export default {
   data() {
     return {
-      work: []
+      work: [],
+      favorited: JSON.parse(localStorage.getItem("favoriteList")) || []
       // isLoading: false,
       // cartTotal: 0
     };
@@ -56,6 +64,19 @@ export default {
     this.getWork();
   },
   methods: {
+    updateFavorite(id) {
+      const favoriteId = this.favorited.indexOf(id);
+      if (favoriteId === -1) {
+        this.favorited.push(id);
+        this.$bus.$emit("message:push", "已加入我的最愛", "info");
+      } else {
+        this.favorited.splice(favoriteId, 1);
+        this.$bus.$emit("message:push", "已移出我的最愛", "info");
+      }
+      localStorage.setItem("favoriteList", JSON.stringify(this.favorited));
+      console.log(this.favorited);
+      this.$bus.$emit("get-favorite-num");
+    },
     getWork() {
       const id = this.$route.params.id;
       this.$http
@@ -101,7 +122,7 @@ export default {
           this.$bus.$emit(
             "message:push",
             res.data.data.product.title + "已加入購物車",
-            "success"
+            "info"
           );
           this.$bus.$emit("get-cart-num");
           // $("#modal").modal("hide");

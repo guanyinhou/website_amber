@@ -9,21 +9,16 @@
           <table class="table">
             <thead>
               <tr>
-                <th>刪除</th>
                 <th>品名</th>
                 <th>圖片</th>
                 <th>數量</th>
                 <th>單位</th>
                 <th>單價</th>
+                <th>刪除</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="item in carts" :key="item.product.id + 1">
-                <td class="trash">
-                  <button class="btn" @click="rmCartItem(item.product.id)">
-                    <i class="fa fa-trash"></i>
-                  </button>
-                </td>
                 <td class="name">
                   <a href="#">{{ item.product.title }}</a>
                 </td>
@@ -70,6 +65,11 @@
                 <td class="unit">{{ item.product.unit }}</td>
                 <td class="prod-price">
                   {{ item.product.price | currency }}
+                </td>
+                <td class="trash">
+                  <button class="btn" @click="rmCartItem(item.product.id)">
+                    <i class="fa fa-trash"></i>
+                  </button>
                 </td>
               </tr>
               <tr>
