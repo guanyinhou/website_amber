@@ -1,108 +1,55 @@
 <template>
-  <router-link class="home" to="/about">
-    <div
-      id="carouselExampleFade"
-      class="carousel slide carousel-fade"
-      data-ride="carousel"
-    >
-      <!-- <ol class="carousel-indicators">
-        <li data-target="#carouselExampleFade" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleFade" data-slide-to="1"></li>
-      </ol> -->
-      <div class="carousel-inner">
-        <div class="carousel-item cover active">
-          <!-- <img src="../../assets/img/slider/slider01.jpg" class="d-block w-100" alt="..."> -->
-          <div class="carousel-caption">
-            <div class="carousel-content">
-              <h1>The ART of AMBER WU</h1>
-            </div>
-          </div>
+  <div class="home">
+    <div class="container">
+      <h1>首頁</h1>
+      <hr />
+      <br />
+      <div class="cate-area">
+        <div class="text-center">
+          <h4>作品分類</h4>
         </div>
-        <div
-          class="carousel-item"
+        <a
+          href="#"
+          class="half-banner"
+          @click.prevent="toCategory(`海景`)"
           :style="{
-            backgroundImage: 'url(' + slider01 + ')'
+            backgroundImage: `url(${banner1})`
           }"
         >
-          <!-- <img src="../../assets/img/slider/slider01.jpg" class="d-block w-100" alt="..."> -->
-          <div class="carousel-caption">
-            <div class="carousel-content">
-              <h3>河景</h3>
-              <h4>River</h4>
-            </div>
-          </div>
-        </div>
-        <div
-          class="carousel-item"
+          <span>海景</span>
+        </a>
+        <a
+          href="#"
+          class="half-banner"
+          @click.prevent="toCategory(`風景`)"
           :style="{
-            backgroundImage: 'url(' + slider02 + ')'
+            backgroundImage: `url(${banner2})`
           }"
         >
-          <div class="carousel-caption">
-            <div class="carousel-content">
-              <h3>漁港風光</h3>
-              <h4>Fish Boats</h4>
-            </div>
-          </div>
-        </div>
-        <div
-          class="carousel-item"
-          :style="{
-            backgroundImage: 'url(' + slider03 + ')'
-          }"
-        >
-          <div class="carousel-caption">
-            <div class="carousel-content">
-              <h3>日落風光</h3>
-              <h4>Sunset</h4>
-            </div>
-          </div>
-        </div>
-        <div
-          class="carousel-item"
-          :style="{
-            backgroundImage: 'url(' + slider04 + ')'
-          }"
-        >
-          <div class="carousel-caption">
-            <div class="carousel-content">
-              <h3>海岸 2</h3>
-              <h4>Seashore 2</h4>
-            </div>
-          </div>
-        </div>
+          <span>風景</span>
+        </a>
       </div>
-      <!-- <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a> -->
     </div>
-  </router-link>
+  </div>
 </template>
 
 <script>
-/* global $ */
-import slider01 from "../../assets/img/slider/slider01.jpg";
-import slider02 from "../../assets/img/slider/slider02.jpg";
-import slider03 from "../../assets/img/slider/slider03.jpg";
-import slider04 from "../../assets/img/slider/slider04.jpg";
+import banner1 from "../../assets/img/home/OPS00020-1.jpg";
+import banner2 from "../../assets/img/home/OPL00026-1.jpg";
 export default {
   data() {
     return {
-      slider01,
-      slider02,
-      slider03,
-      slider04
+      banner1,
+      banner2
     };
   },
-  mounted() {
-    $(".carousel").carousel({
-      interval: 5000
-    });
+  methods: {
+    toCategory(Name) {
+      this.$router.push({
+        name: "Works",
+        params: { cateName: Name }
+      });
+    }
   }
 };
 </script>

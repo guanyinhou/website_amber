@@ -18,6 +18,11 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
+            <router-link class="nav-link" to="/home">
+              首頁
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" to="/about">
               關於藝術家
             </router-link>

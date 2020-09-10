@@ -87,7 +87,7 @@ export default {
         this.$bus.$emit("message:push", "已移出我的最愛", "info");
       }
       localStorage.setItem("favoriteList", JSON.stringify(this.favorited));
-      this.favoriteTotalNum = this.favorited.length;
+      // this.favoriteTotalNum = this.favorited.length;
       this.$bus.$emit("get-favorite-num:favorited", id);
     },
     getWork() {

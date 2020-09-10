@@ -89,6 +89,7 @@ hr{
                 padding-right: 15px;
             }
             .about,
+            .home,
             .works,
             .contact,
             .order,
@@ -124,6 +125,44 @@ hr{
                 padding-top: 200px;
                 z-index: 1;
                 position: relative;
+            }
+            .home{
+                .cate-area{
+                    overflow: hidden;
+                    .half-banner{
+                        position: relative;
+                        width: 50%;
+                        float: left;
+                        padding-top: 360px;
+                        background-size: cover;
+                        background-repeat: no-repeat;
+                        background-position: top;
+                        // filter: sepia(1);
+                        // transition: all .4s;
+                        &:hover{
+                            color: #fff;
+                            span{
+                                background-color: rgba(0,0,0,0);
+                            }
+                        }
+                        img{
+                            width: 100%;
+                        }
+                        span{
+                            transition: all .4s;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            // transform: translate(-50%,-50%);
+                            right: 0;
+                            bottom: 0;
+                            font-size: 36px;
+                            background-color: rgba(0,0,0,0.4);
+                            line-height: 360px;
+                            text-align: center;
+                        }
+                    }
+                }
             }
             .works{
                 @media(max-width: 575.98px){
@@ -558,7 +597,7 @@ hr{
                 }
             }
         }
-        .home{
+        .index{
             .carousel-inner{
                 .carousel-item{
                     // padding-top: 60%;

@@ -143,8 +143,8 @@ export default {
       this.$bus.$emit("get-favorite-num:favorited", id);
     },
     rmAllFavorites() {
-      this.favorited = [];
-      // this.favorited.splice(0);
+      // this.favorited = [];
+      this.favorited.splice(0);
       localStorage.setItem("favoriteList", JSON.stringify(this.favorited));
       this.getProds();
       this.$bus.$emit("message:push", "已全數移出", "info");
