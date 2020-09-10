@@ -117,7 +117,17 @@ export default {
   methods: {
     updateFavorite(id) {
       console.log(id);
+      if (this.favorited.indexOf(id) === -1) {
+        this.favorited.push(id);
+        this.$bus.$emit("message:push", "已加入我的最愛", "info");
+      } else {
+        this.favorited.splice(this.favorited.indexOf(id), 1);
+        this.$bus.$emit("message:push", "已移出我的最愛", "info");
+      }
+      localStorage.setItem("favoriteList", JSON.stringify(this.favorited));
+      this.favoriteTotalNum = this.favorited.length;
       this.$bus.$emit("get-favorite-num:favorited", id);
+      console.log(this.favorited);
     },
     addToCart(id, qty = 1) {
       this.isLoading = true;

@@ -28,12 +28,15 @@
             <button class="btn" @click="addToCart(work.id)">
               <i class="fa fa-cart-plus"></i> 加入購物車
             </button>
-            <button class="btn" @click="updateFavorite(work.id)">
-              <i
-                class="fa fa-heart-o"
-                v-if="favorited.indexOf(work.id) === -1"
-              ></i>
-              <i class="fa fa-heart text-danger" v-else></i> 加入我的最愛
+            <button
+              class="btn"
+              @click="updateFavorite(work.id)"
+              v-if="favorited.indexOf(work.id) === -1"
+            >
+              <i class="fa fa-heart-o"></i> 加入我的最愛
+            </button>
+            <button class="btn" @click="updateFavorite(work.id)" v-else>
+              <i class="fa fa-heart text-danger"></i> 已加入我的最愛
             </button>
           </div>
         </div>
@@ -65,17 +68,27 @@ export default {
   },
   methods: {
     updateFavorite(id) {
-      const favoriteId = this.favorited.indexOf(id);
-      if (favoriteId === -1) {
+      // const favoriteId = this.favorited.indexOf(id);
+      // if (favoriteId === -1) {
+      //   this.favorited.push(id);
+      //   this.$bus.$emit("message:push", "已加入我的最愛", "info");
+      // } else {
+      //   this.favorited.splice(favoriteId, 1);
+      //   this.$bus.$emit("message:push", "已移出我的最愛", "info");
+      // }
+      // localStorage.setItem("favoriteList", JSON.stringify(this.favorited));
+      // console.log(this.favorited);
+      // this.$bus.$emit("get-favorite-num");
+      if (this.favorited.indexOf(id) === -1) {
         this.favorited.push(id);
         this.$bus.$emit("message:push", "已加入我的最愛", "info");
       } else {
-        this.favorited.splice(favoriteId, 1);
+        this.favorited.splice(this.favorited.indexOf(id), 1);
         this.$bus.$emit("message:push", "已移出我的最愛", "info");
       }
       localStorage.setItem("favoriteList", JSON.stringify(this.favorited));
-      console.log(this.favorited);
-      this.$bus.$emit("get-favorite-num");
+      this.favoriteTotalNum = this.favorited.length;
+      this.$bus.$emit("get-favorite-num:favorited", id);
     },
     getWork() {
       const id = this.$route.params.id;

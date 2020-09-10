@@ -81,7 +81,8 @@ export default {
       // checkSuccess: false
       prods: [],
       carts: [],
-      cartTotalNum: 0
+      cartTotalNum: 0,
+      favorited: JSON.parse(localStorage.getItem("favoriteList")) || []
     };
   },
   created() {

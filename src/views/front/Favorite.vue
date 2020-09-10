@@ -139,7 +139,8 @@ export default {
       }
       localStorage.setItem("favoriteList", JSON.stringify(this.favorited));
       this.getProds();
-      this.$bus.$emit("message:push", "已移出我的最愛", "info");
+      // this.$bus.$emit("message:push", "已移出我的最愛", "info");
+      this.$bus.$emit("get-favorite-num:favorited", id);
     },
     rmAllFavorites() {
       this.favorited = [];
@@ -147,6 +148,7 @@ export default {
       localStorage.setItem("favoriteList", JSON.stringify(this.favorited));
       this.getProds();
       this.$bus.$emit("message:push", "已全數移出", "info");
+      this.$bus.$emit("get-favorite-num:favorited", null);
     },
     updateQuantity(id, quantity) {
       if (quantity <= 0) return;
