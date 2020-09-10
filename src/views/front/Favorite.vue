@@ -103,7 +103,7 @@ export default {
         .then(res => {
           this.isLoading = false;
           this.prods = res.data.data;
-          console.log("prods", this.prods);
+          // console.log("prods", this.prods);
           this.pagination = res.data.meta.pagination;
           this.getFavorite();
         })
@@ -115,7 +115,7 @@ export default {
     },
     getFavorite() {
       console.log(this.favorited);
-      console.log(this.prods);
+      // console.log(this.prods);
       this.favoriteTotalNum = this.favorited.length;
       this.favoriteProd = this.prods.filter(
         item => this.favorited.indexOf(item.id) > -1
@@ -143,8 +143,8 @@ export default {
       this.$bus.$emit("get-favorite-num:favorited", id);
     },
     rmAllFavorites() {
-      // this.favorited = [];
-      this.favorited.splice(0);
+      this.favorited = [];
+      // this.favorited.splice(0);
       localStorage.setItem("favoriteList", JSON.stringify(this.favorited));
       this.getProds();
       this.$bus.$emit("message:push", "已全數移出", "info");

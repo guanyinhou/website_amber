@@ -27,13 +27,15 @@ export default {
     },
     updateFavorite(id) {
       console.log(this);
+      console.log(this.favorited);
       console.log(id);
       console.log(this.favorited.indexOf(id));
-      if (this.favorited.indexOf(id) === -1) {
-        this.favorited.push(id);
+      if (id === null || undefined || "") {
+        this.favorited = [];
         // this.$bus.$emit("message:push", "已加入我的最愛", "info");
-      } else if (id === null) {
-        this.favorited.splice(0);
+      } else if (this.favorited.indexOf(id) === -1) {
+        // this.favorited.splice(0);
+        this.favorited.push(id);
       } else {
         this.favorited.splice(this.favorited.indexOf(id), 1);
         // this.$bus.$emit("message:push", "已移出我的最愛", "info");
