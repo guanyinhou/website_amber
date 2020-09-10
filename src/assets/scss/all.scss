@@ -127,6 +127,10 @@ hr{
                 position: relative;
             }
             .home{
+                h1{
+                    font-size: 4.5rem;
+                    font-family: 'Seaweed Script', cursive;
+                }
                 .cate-area{
                     overflow: hidden;
                     .half-banner{
@@ -160,6 +164,7 @@ hr{
                             background-color: rgba(0,0,0,0.4);
                             line-height: 360px;
                             text-align: center;
+                            filter: drop-shadow(2px 8px 10px white);
                         }
                     }
                 }
@@ -584,11 +589,12 @@ hr{
                     }
                 }
                 .prod-img{
-                    text-align: center;
+                    // display: none;
+                    &.active{
+                        // display: block;
+                    }
                     img{
-                        @media(max-width: 575.98px){
-                            width: 100%;
-                        }
+                        width: 100%;
                     }
                 }
                 .prod-content {

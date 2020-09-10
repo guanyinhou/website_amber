@@ -1,9 +1,15 @@
 <template>
   <div class="home">
     <div class="container">
-      <h1>首頁</h1>
-      <hr />
+      <div class="text-center">
+        <h1>Welcome</h1>
+        <hr />
+        <br />
+      </div>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit quam, accusantium odio placeat pariatur, at veniam neque nam dignissimos facere dolores, labore sapiente cum sint maiores. Nostrum harum vitae modi?</p>
       <br />
+      <br />
+
       <div class="cate-area">
         <div class="text-center">
           <h4>作品分類</h4>

@@ -1,8 +1,8 @@
 <template>
   <div class="back">
-    <nav class="navbar navbar-top fixed-top navbar-expand-lg">
+    <nav class="navbar navbar-top fixed-top navbar-expand-lg navbar-dark">
       <router-link class="navbar-brand" href="#" to="/admin">
-        後台管理系統
+        The Art of Amber Wu
       </router-link>
       <button
         class="navbar-toggler"

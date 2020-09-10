@@ -6,47 +6,72 @@
       </div>
       <hr />
       <div class="prod-zone">
-        <div class="prod-img" v-for="(item, idx) in 5" :key="idx">
-          <img :src="work.imageUrl[idx]" />
-        </div>
-        <div class="text-center">
-          <div
-            class="prod-origin-price"
-            v-if="work.origin_price === work.price"
-          >
-            售價 {{ work.origin_price | currency }}
+        <div class="row">
+          <div class="col-sm-6">
+            <VueSlickCarousel v-bind="settings">
+              <div v-for="(item, idx) in 5" :key="idx">
+                <div class="prod-img">
+                  <img :src="work.imageUrl[idx]" />
+                </div>
+              </div>
+            </VueSlickCarousel>
+            <!-- <div class="prod-img" v-for="(item, idx) in 5" :key="idx">
+                <img :src="work.imageUrl[idx]" />
+              </div> -->
           </div>
-          <span v-else>
-            <div class="prod-origin-price old-price">
-              售價 {{ work.origin_price | currency }}
+          <div class="col-sm-5 offset-sm-1">
+            <div class="prod-content">
+              <div class="sub-title">產品材質</div>
+              <p>{{ work.description }}</p>
             </div>
-            <div class="prod-price">
-              <h2>特價 {{ work.price | currency }}</h2>
+            <div class="prod-content">
+              <div class="sub-title">價格</div>
+              <div
+                class="prod-origin-price"
+                v-if="work.origin_price === work.price"
+              >
+                售價 {{ work.origin_price | currency }}
+              </div>
+              <span v-else>
+                <div class="prod-origin-price old-price">
+                  售價 {{ work.origin_price | currency }}
+                </div>
+                <div class="prod-price">
+                  <h2>特價 {{ work.price | currency }}</h2>
+                </div>
+              </span>
             </div>
-          </span>
-          <div class="add-to-cart">
-            <button class="btn" @click="addToCart(work.id)">
-              <i class="fa fa-cart-plus"></i> 加入購物車
-            </button>
-            <button
-              class="btn"
-              @click="updateFavorite(work.id)"
-              v-if="favorited.indexOf(work.id) === -1"
-            >
-              <i class="fa fa-heart-o"></i> 加入我的最愛
-            </button>
-            <button class="btn" @click="updateFavorite(work.id)" v-else>
-              <i class="fa fa-heart text-danger"></i> 已加入我的最愛
-            </button>
+            <div class="add-to-cart">
+              <button class="btn" @click="addToCart(work.id)">
+                <i class="fa fa-cart-plus"></i> 加入購物車
+              </button>
+              <button
+                class="btn"
+                @click="updateFavorite(work.id)"
+                v-if="favorited.indexOf(work.id) === -1"
+              >
+                <i class="fa fa-heart-o"></i> 加入我的最愛
+              </button>
+              <button class="btn" @click="updateFavorite(work.id)" v-else>
+                <i class="fa fa-heart text-danger"></i> 已加入我的最愛
+              </button>
+            </div>
           </div>
         </div>
+        <br />
+        <br />
+        <br />
         <div class="prod-content">
           <div class="sub-title">產品介紹</div>
           <div v-html="work.content"></div>
         </div>
         <div class="prod-content">
-          <div class="sub-title">產品材質</div>
-          <p>{{ work.description }}</p>
+          <div class="sub-title">更多作品：</div>
+          <VueSlickCarousel v-bind="settings">
+            <div><h3>1</h3></div>
+            <div><h3>2</h3></div>
+            <div><h3>3</h3></div>
+          </VueSlickCarousel>
         </div>
       </div>
     </div>
@@ -54,9 +79,58 @@
 </template>
 
 <script>
+import VueSlickCarousel from "vue-slick-carousel";
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
+import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 export default {
+  components: {
+    VueSlickCarousel
+  },
   data() {
     return {
+      settings: {
+        "dots": true,
+        "dotsClass": "slick-dots custom-dot-class",
+        "edgeFriction": 0.35,
+        "infinite": false,
+        "speed": 500,
+        "slidesToShow": 1,
+        "slidesToScroll": 1
+      },
+      settings2: {
+        "dots": true,
+        "infinite": false,
+        "speed": 500,
+        "slidesToShow": 4,
+        "slidesToScroll": 4,
+        "initialSlide": 0,
+        "responsive": [
+          {
+            "breakpoint": 1024,
+            "settings": {
+              "slidesToShow": 3,
+              "slidesToScroll": 3,
+              "infinite": true,
+              "dots": true
+            }
+          },
+          {
+            "breakpoint": 600,
+            "settings": {
+              "slidesToShow": 2,
+              "slidesToScroll": 2,
+              "initialSlide": 2
+            }
+          },
+          {
+            "breakpoint": 480,
+            "settings": {
+              "slidesToShow": 1,
+              "slidesToScroll": 1
+            }
+          }
+        ]
+      },
       work: [],
       favorited: JSON.parse(localStorage.getItem("favoriteList")) || []
       // isLoading: false,
