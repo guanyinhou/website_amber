@@ -1,46 +1,47 @@
 <template>
   <div class="login">
     <loading :active.sync="isLoading"></loading>
-    <div class="text-center">
-      <h1 class="theme">The Art of Amber Wu</h1>
-      <h1>後臺登入</h1>
-      <div class="container">
-        <div class="text-center">
-          <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-              <form class="form-signin" @submit.prevent.enter="signin">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+          <div class="text-center">
+            <h1 class="theme">
+              The Art of<br />
+              Amber Wu
+            </h1>
+            <h1>後臺登入</h1>
+            <form class="form-signin" @submit.prevent.enter="signin">
+              <br />
+              <br />
+              <br />
+              <hr />
+              <br />
+              <input
+                type="email"
+                class="form-control"
+                placeholder="E-mail"
+                v-model="user.email"
+                required
+              />
+              <br />
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Password"
+                v-model="user.password"
+                required
+              />
+              <br />
+              <hr />
+              <div class="btn-zone">
+                <button class="btn" type="submit">登入</button>
                 <br />
-                <br />
-                <br />
-                <hr />
-                <br />
-                <input
-                  type="email"
-                  class="form-control"
-                  placeholder="E-mail"
-                  v-model="user.email"
-                  required
-                />
-                <br />
-                <input
-                  type="password"
-                  class="form-control"
-                  placeholder="Password"
-                  v-model="user.password"
-                  required
-                />
-                <br />
-                <hr />
-                <div class="btn-zone">
-                  <button class="btn" type="submit">登入</button>
-                  <br />
-                </div>
-              </form>
-            </div>
-            <div class="col-sm-4"></div>
+              </div>
+            </form>
           </div>
         </div>
+        <div class="col-sm-4"></div>
       </div>
     </div>
   </div>
