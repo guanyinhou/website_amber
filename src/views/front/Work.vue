@@ -204,7 +204,8 @@ export default {
   },
   created() {
     this.getWork();
-    // this.getMoreworks();
+    this.getViewed();
+    this.getMoreworks();
   },
   methods: {
     updateFavorite(id) {
@@ -221,13 +222,16 @@ export default {
     },
     getWork() {
       this.isLoading = true;
-      this.getMoreworks();
       const id = this.$route.params.id;
       this.$http
         .get(
           `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/product/${id}`
         )
         .then(res => {
+          // if (this.getMoreworks() === false) {
+          //   return;
+          // }
+          // console.log(Boolean(this.getMoreworks()));
           this.isLoading = false;
           this.work = res.data.data;
           console.log(this.work);
@@ -251,12 +255,29 @@ export default {
           // console.log(land);
           // this.moreworks = obj;
           console.log("moreworks", this.moreworks);
+        })
+        .catch(err => {
+          console.dir(err);
+          this.isLoading = false;
+          this.$bus.$emit("message:push", err.response.data.message, "danger");
+        });
+    },
+    getViewed() {
+      this.isLoading = true;
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?paged=40`;
+      this.$http
+        .get(url)
+        .then(res => {
+          this.isLoading = false;
+          this.prods = res.data.data;
+          console.log(this.prods);
+          // let obj = JSON.parse(JSON.stringify(this.prods));
           // 瀏覽紀錄
-          const id = this.$route.params.id;
-          if (this.viewed.indexOf(id) === -1) {
-            this.viewed.push(id);
+          const viewedId = this.$route.params.id;
+          if (this.viewed.indexOf(viewedId) === -1) {
+            this.viewed.push(viewedId);
           } else {
-            this.viewed.splice(this.viewed.indexOf(id));
+            this.viewed.splice(this.viewed.indexOf(viewedId));
           }
           localStorage.setItem("viewedList", JSON.stringify(this.viewed));
           this.viewedProds = this.prods.filter(
