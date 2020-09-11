@@ -1,5 +1,6 @@
 <template>
   <div class="work">
+    <loading :active.sync="isLoading"></loading>
     <div class="container">
       <div class="text-center">
         <h1>{{ work.title }}</h1>
@@ -191,19 +192,19 @@ export default {
           }
         ]
       },
-      work: [],
+      work: {},
       prods: [],
       moreworks: [],
       viewedProds: [],
       viewed: JSON.parse(localStorage.getItem("viewedList")) || [],
-      favorited: JSON.parse(localStorage.getItem("favoriteList")) || []
-      // isLoading: false,
+      favorited: JSON.parse(localStorage.getItem("favoriteList")) || [],
+      isLoading: false
       // cartTotal: 0
     };
   },
   created() {
     this.getWork();
-    this.getMoreworks();
+    // this.getMoreworks();
   },
   methods: {
     updateFavorite(id) {
@@ -219,18 +220,22 @@ export default {
       this.$bus.$emit("get-favorite-num:favorited", id);
     },
     getWork() {
+      this.isLoading = true;
+      this.getMoreworks();
       const id = this.$route.params.id;
       this.$http
         .get(
           `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/product/${id}`
         )
         .then(res => {
+          this.isLoading = false;
           this.work = res.data.data;
+          console.log(this.work);
         });
     },
     getMoreworks() {
       this.isLoading = true;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products`;
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?paged=40`;
       this.$http
         .get(url)
         .then(res => {
@@ -238,12 +243,13 @@ export default {
           this.prods = res.data.data;
           console.log(this.prods);
           // let obj = JSON.parse(JSON.stringify(this.prods));
-          let obj = this.prods.filter(
+          // 相關作品
+          this.moreworks = this.prods.filter(
             item =>
               item.category === this.work.category && item.id !== this.work.id
           );
           // console.log(land);
-          this.moreworks = obj;
+          // this.moreworks = obj;
           console.log("moreworks", this.moreworks);
           // 瀏覽紀錄
           const id = this.$route.params.id;
