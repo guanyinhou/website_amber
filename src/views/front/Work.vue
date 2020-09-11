@@ -1,5 +1,5 @@
 <template>
-  <div class="work">
+  <div class="work" v-if="prods">
     <loading :active.sync="isLoading"></loading>
     <div class="container">
       <div class="text-center">
@@ -193,7 +193,7 @@ export default {
         ]
       },
       work: {},
-      prods: [],
+      prods: null,
       moreworks: [],
       viewedProds: [],
       viewed: JSON.parse(localStorage.getItem("viewedList")) || [],
