@@ -100,7 +100,7 @@
             </div>
           </VueSlickCarousel>
         </div>
-        <div class="prod-content more-works">
+        <div class="prod-content more-works" v-if="moreworks.length > 0">
           <div class="sub-title">更多{{ work.category }}畫作品：</div>
           <VueSlickCarousel v-bind="settings1">
             <div v-for="morework in moreworks" :key="morework.id">
@@ -192,6 +192,7 @@ export default {
         ]
       },
       work: [],
+      prods: [],
       moreworks: [],
       viewedProds: [],
       viewed: JSON.parse(localStorage.getItem("viewedList")) || [],
@@ -229,24 +230,21 @@ export default {
     },
     getMoreworks() {
       this.isLoading = true;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?paged=40`;
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products`;
       this.$http
         .get(url)
         .then(res => {
-          const { cateName } = this.$route.params;
-          if (cateName) {
-            this.filterCate = cateName;
-          }
           this.isLoading = false;
           this.prods = res.data.data;
           console.log(this.prods);
-          let obj = JSON.parse(JSON.stringify(this.prods));
-          obj = this.prods.filter(
+          // let obj = JSON.parse(JSON.stringify(this.prods));
+          let obj = this.prods.filter(
             item =>
               item.category === this.work.category && item.id !== this.work.id
           );
           // console.log(land);
           this.moreworks = obj;
+          console.log("moreworks", this.moreworks);
           // 瀏覽紀錄
           const id = this.$route.params.id;
           if (this.viewed.indexOf(id) === -1) {
@@ -258,6 +256,7 @@ export default {
           this.viewedProds = this.prods.filter(
             item => this.viewed.indexOf(item.id) > -1
           );
+          console.log("viewedProds", this.viewedProds);
         })
         .catch(err => {
           console.dir(err);
