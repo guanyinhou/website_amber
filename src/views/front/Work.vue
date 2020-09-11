@@ -21,7 +21,7 @@
           </div>
           <div class="col-sm-5 offset-sm-1">
             <div class="prod-content">
-              <div class="sub-title">產品材質</div>
+              <div class="sub-title">作品材質</div>
               <p>{{ work.description }}</p>
             </div>
             <div class="prod-content">
@@ -62,15 +62,74 @@
         <br />
         <br />
         <div class="prod-content">
-          <div class="sub-title">產品介紹</div>
+          <div class="sub-title">作品介紹</div>
           <div v-html="work.content"></div>
         </div>
-        <div class="prod-content">
-          <div class="sub-title">更多作品：</div>
-          <VueSlickCarousel v-bind="settings">
-            <div><h3>1</h3></div>
-            <div><h3>2</h3></div>
-            <div><h3>3</h3></div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="prod-content" v-if="viewedProds.length > 0">
+          <div class="sub-title">瀏覽紀錄：</div>
+          <VueSlickCarousel v-bind="settings1">
+            <div v-for="viewedProd in viewedProds" :key="viewedProd.id">
+              <router-link class="more-work" :to="`/product/${viewedProd.id}`">
+                <div class="more-work-img">
+                  <img :src="viewedProd.imageUrl[0]" alt="viewedProd.title" />
+                </div>
+                <div class="text-center">
+                  <p>{{ viewedProd.title }}</p>
+                  <div class="more-work-price">
+                    <div
+                      class="prod-origin-price"
+                      v-if="viewedProd.origin_price === viewedProd.price"
+                    >
+                      {{ viewedProd.origin_price | currency }}
+                    </div>
+                    <span v-else>
+                      <div class="prod-origin-price old-price">
+                        {{ viewedProd.origin_price | currency }}
+                      </div>
+                      <div class="prod-price">
+                        <h2>{{ viewedProd.price | currency }}</h2>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              </router-link>
+            </div>
+          </VueSlickCarousel>
+        </div>
+        <div class="prod-content more-works">
+          <div class="sub-title">更多{{ work.category }}畫作品：</div>
+          <VueSlickCarousel v-bind="settings1">
+            <div v-for="morework in moreworks" :key="morework.id">
+              <!-- <router-link :to="`/product/${prod.id}`"> -->
+              <router-link :to="`/product/${morework.id}`" class="more-work">
+                <div class="more-work-img">
+                  <img :src="morework.imageUrl[0]" alt="morework.title" />
+                </div>
+                <div class="text-center">
+                  <p>{{ morework.title }}</p>
+                  <div class="more-work-price">
+                    <div
+                      class="prod-origin-price"
+                      v-if="morework.origin_price === morework.price"
+                    >
+                      {{ morework.origin_price | currency }}
+                    </div>
+                    <span v-else>
+                      <div class="prod-origin-price old-price">
+                        {{ morework.origin_price | currency }}
+                      </div>
+                      <div class="prod-price">
+                        <h2>{{ morework.price | currency }}</h2>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              </router-link>
+            </div>
           </VueSlickCarousel>
         </div>
       </div>
@@ -89,49 +148,53 @@ export default {
   data() {
     return {
       settings: {
-        "dots": true,
-        "dotsClass": "slick-dots custom-dot-class",
-        "edgeFriction": 0.35,
-        "infinite": false,
-        "speed": 500,
-        "slidesToShow": 1,
-        "slidesToScroll": 1
+        fade: true,
+        dots: true,
+        dotsClass: "slick-dots custom-dot-class",
+        edgeFriction: 0.35,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
       },
-      settings2: {
-        "dots": true,
-        "infinite": false,
-        "speed": 500,
-        "slidesToShow": 4,
-        "slidesToScroll": 4,
-        "initialSlide": 0,
-        "responsive": [
+      settings1: {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        initialSlide: 0,
+        responsive: [
           {
-            "breakpoint": 1024,
-            "settings": {
-              "slidesToShow": 3,
-              "slidesToScroll": 3,
-              "infinite": true,
-              "dots": true
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              infinite: true,
+              dots: true
             }
           },
           {
-            "breakpoint": 600,
-            "settings": {
-              "slidesToShow": 2,
-              "slidesToScroll": 2,
-              "initialSlide": 2
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+              initialSlide: 2
             }
           },
           {
-            "breakpoint": 480,
-            "settings": {
-              "slidesToShow": 1,
-              "slidesToScroll": 1
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
             }
           }
         ]
       },
       work: [],
+      moreworks: [],
+      viewedProds: [],
+      viewed: JSON.parse(localStorage.getItem("viewedList")) || [],
       favorited: JSON.parse(localStorage.getItem("favoriteList")) || []
       // isLoading: false,
       // cartTotal: 0
@@ -139,20 +202,10 @@ export default {
   },
   created() {
     this.getWork();
+    this.getMoreworks();
   },
   methods: {
     updateFavorite(id) {
-      // const favoriteId = this.favorited.indexOf(id);
-      // if (favoriteId === -1) {
-      //   this.favorited.push(id);
-      //   this.$bus.$emit("message:push", "已加入我的最愛", "info");
-      // } else {
-      //   this.favorited.splice(favoriteId, 1);
-      //   this.$bus.$emit("message:push", "已移出我的最愛", "info");
-      // }
-      // localStorage.setItem("favoriteList", JSON.stringify(this.favorited));
-      // console.log(this.favorited);
-      // this.$bus.$emit("get-favorite-num");
       if (this.favorited.indexOf(id) === -1) {
         this.favorited.push(id);
         this.$bus.$emit("message:push", "已加入我的最愛", "info");
@@ -174,24 +227,44 @@ export default {
           this.work = res.data.data;
         });
     },
-    // getCart() {
-    //   const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
-    //   this.$http
-    //     .get(url)
-    //     .then(res => {
-    //       this.carts = res.data.data;
-    //       this.cartTotal = 0;
-    //       this.updateCartTotal();
-    //     })
-    //     .catch(err => {
-    //       console.dir(err);
-    //     });
-    // },
-    // updateCartTotal() {
-    //   this.carts.forEach(item => {
-    //     this.cartTotal += item.product.price * item.quantity;
-    //   });
-    // },
+    getMoreworks() {
+      this.isLoading = true;
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?paged=40`;
+      this.$http
+        .get(url)
+        .then(res => {
+          const { cateName } = this.$route.params;
+          if (cateName) {
+            this.filterCate = cateName;
+          }
+          this.isLoading = false;
+          this.prods = res.data.data;
+          console.log(this.prods);
+          let obj = JSON.parse(JSON.stringify(this.prods));
+          obj = this.prods.filter(
+            item =>
+              item.category === this.work.category && item.id !== this.work.id
+          );
+          // console.log(land);
+          this.moreworks = obj;
+          // 瀏覽紀錄
+          const id = this.$route.params.id;
+          if (this.viewed.indexOf(id) === -1) {
+            this.viewed.push(id);
+          } else {
+            this.viewed.splice(this.viewed.indexOf(id));
+          }
+          localStorage.setItem("viewedList", JSON.stringify(this.viewed));
+          this.viewedProds = this.prods.filter(
+            item => this.viewed.indexOf(item.id) > -1
+          );
+        })
+        .catch(err => {
+          console.dir(err);
+          this.isLoading = false;
+          this.$bus.$emit("message:push", err.response.data.message, "danger");
+        });
+    },
     addToCart(id, qty = 1) {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;

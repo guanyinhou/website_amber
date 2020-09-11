@@ -10,7 +10,7 @@
       <router-link to="/about">About</router-link>
     </div> -->
     <Toast />
-    <router-view />
+    <router-view :key="key" />
     <Footer />
     <Gototop />
   </div>
@@ -35,6 +35,11 @@ export default {
     return {
       bg
     };
+  },
+  computed: {
+    key() {
+      return this.$route.path + Math.random();
+    }
   }
 };
 </script>

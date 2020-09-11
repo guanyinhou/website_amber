@@ -64,7 +64,7 @@
           <br />
           <hr />
           <br />
-          <table class="table-bordered">
+          <table class="table-bordered table-responsive">
             <thead>
               <tr>
                 <th>訂單編號</th>
