@@ -124,7 +124,7 @@ export default {
           console.log(res);
           this.isLoading = false;
           $("#deleteModal").modal("hide");
-          this.$bus.$emit("message:push", "圖片刪除成功", "success");
+          this.$bus.$emit("message:push", "圖片刪除成功", "info");
           this.getData();
         })
         .catch(err => {

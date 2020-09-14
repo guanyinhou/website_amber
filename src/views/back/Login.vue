@@ -73,7 +73,7 @@ export default {
           document.cookie = `hexToken=${token};expires=${new Date(
             expired * 1000
           )}`;
-          this.$bus.$emit("message:push", res.data.message, "success");
+          this.$bus.$emit("message:push", res.data.message, "info");
           this.$router.push("/admin");
           console.log(res);
         })

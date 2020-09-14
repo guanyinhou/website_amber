@@ -79,7 +79,7 @@
               </td>
               <td class="align-middle">
                 {{ item.product.title }}
-                <div v-if="coupon.enabled" class="text-success">
+                <div v-if="coupon.enabled" class="text-info">
                   已套用優惠卷
                 </div>
               </td>
@@ -126,8 +126,8 @@
               <td class="text-right">{{ cartTotal | currency }}</td>
             </tr>
             <tr v-if="coupon.enabled">
-              <td colspan="4" class="text-right text-success">折扣價</td>
-              <td class="text-right text-success">
+              <td colspan="4" class="text-right text-info">折扣價</td>
+              <td class="text-right text-info">
                 {{
                   (cartTotal - cartTotal * (coupon.percent / 100)) | currency
                 }}
@@ -387,7 +387,7 @@ export default {
         .post(url, cart)
         .then(() => {
           this.status.loadingItem = "";
-          this.$bus.$emit("message:push", "加入購物車成功", "success");
+          this.$bus.$emit("message:push", "加入購物車成功", "info");
           $("#prodModal").modal("hide");
           this.getCart();
         })
@@ -443,7 +443,7 @@ export default {
       this.$http
         .delete(url)
         .then(() => {
-          this.$bus.$emit("message:push", "全部商品已刪除", "success");
+          this.$bus.$emit("message:push", "全部商品已刪除", "info");
           this.isLoading = false;
           this.getCart();
         })
@@ -458,7 +458,7 @@ export default {
       this.$http
         .delete(url)
         .then(() => {
-          this.$bus.$emit("message:push", "商品刪除成功", "success");
+          this.$bus.$emit("message:push", "商品刪除成功", "info");
           this.isLoading = false;
           this.getCart();
         })

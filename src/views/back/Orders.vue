@@ -44,7 +44,7 @@
                 @change="setOrder(order)"
               />
               <label class="custom-control-label" :for="order.id">
-                <strong v-if="order.paid" class="text-success">已付款</strong>
+                <strong v-if="order.paid" class="text-info">已付款</strong>
                 <span v-else class="text-muted">尚未付款</span>
               </label>
             </div>

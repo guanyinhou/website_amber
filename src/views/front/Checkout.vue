@@ -18,7 +18,7 @@
             <tr v-for="item in carts" :key="item.product.id + 1">
               <td class="name">
                 <a href="#">{{ item.product.title }}</a>
-                <div v-if="coupon.enabled" class="text-success">
+                <div v-if="coupon.enabled" class="text-info">
                   已套用優惠卷
                 </div>
               </td>

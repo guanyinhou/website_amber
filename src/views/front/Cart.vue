@@ -221,7 +221,7 @@ export default {
         .then(res => {
           // 加速數量選擇
           this.status.loadingNum = "";
-          this.$bus.$emit("message:push", res.data.message, "success");
+          this.$bus.$emit("message:push", res.data.message, "info");
           console.log(res);
           this.cartPageTotalNum = 0;
           this.$bus.$emit("get-cart-num");
@@ -237,7 +237,7 @@ export default {
       this.$http
         .delete(url)
         .then(() => {
-          this.$bus.$emit("message:push", "全部商品已刪除", "success");
+          this.$bus.$emit("message:push", "全部商品已刪除", "info");
           this.isLoading = false;
           this.cartPageTotalNum = 0;
           this.$bus.$emit("get-cart-num");

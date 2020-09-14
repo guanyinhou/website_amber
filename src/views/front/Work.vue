@@ -355,7 +355,7 @@ export default {
       this.$http
         .post(url, cart)
         .then(res => {
-          // this.isLoading = false;
+          this.isLoading = false;
           console.log(res);
           this.$bus.$emit(
             "message:push",
@@ -367,7 +367,7 @@ export default {
           // this.getCart();
         })
         .catch(err => {
-          // this.isLoading = false;
+          this.isLoading = false;
           this.$bus.$emit(
             "message:push",
             err.response.data.errors[0],

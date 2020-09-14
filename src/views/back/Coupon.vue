@@ -24,7 +24,7 @@
           <td>{{ item.percent }}</td>
           <td>{{ item.deadline.datetime }}</td>
           <td>
-            <span class="text-success" v-if="item.enabled">啟用</span>
+            <span class="text-info" v-if="item.enabled">啟用</span>
             <span class="text-muted" v-else>未啟用</span>
           </td>
           <td>
@@ -265,7 +265,7 @@ export default {
         .then(() => {
           this.isLoading = false;
           $("#couponModal").modal("hide");
-          this.$bus.$emit("message:push", status, "success");
+          this.$bus.$emit("message:push", status, "info");
           this.getCoupons();
         })
         .catch(err => {
@@ -282,7 +282,7 @@ export default {
         .then(() => {
           this.isLoading = false;
           $("#delCouponModal").modal("hide");
-          this.$bus.$emit("message:push", "刪除成功", "success");
+          this.$bus.$emit("message:push", "刪除成功", "info");
           this.getCoupons();
         })
         .catch(err => {

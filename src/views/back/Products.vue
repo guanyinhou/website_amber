@@ -411,7 +411,7 @@ export default {
           this.$bus.$emit(
             "message:push",
             `商品${this.isNew ? "新增" : "更新"}成功`,
-            "success"
+            "info"
           );
           this.isLoading = false;
           this.getProds();
@@ -445,7 +445,7 @@ export default {
           if (res.status === 200) {
             this.tempProd.imageUrl.push(res.data.data.path);
           }
-          this.$bus.$emit("message:push", "圖片上傳成功", "success");
+          this.$bus.$emit("message:push", "圖片上傳成功", "info");
         })
         .catch(() => {
           this.$bus.$emit("message:push", "圖片上傳失敗", "danger");
@@ -461,7 +461,7 @@ export default {
           console.log(res);
           $("#deleteModal").modal("hide");
           this.isLoading = false;
-          this.$bus.$emit("message:push", "刪除成功", "success");
+          this.$bus.$emit("message:push", "刪除成功", "info");
           this.getProds();
         })
         .catch(err => {
