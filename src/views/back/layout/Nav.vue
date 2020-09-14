@@ -96,7 +96,7 @@ export default {
   methods: {
     signout() {
       document.cookie = "tokenName=;expire=;";
-      window.location = "/login";
+      window.location = "/website_amber/dist/#/";
     }
   }
 };

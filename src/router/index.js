@@ -57,7 +57,7 @@ const routes = [
       },
       {
         name: "CheckoutFinish",
-        path: "/checkout_finish",
+        path: "/checkout_result/:orderId",
         component: () => import("../views/front/CheckoutFinish.vue")
       },
       {
@@ -71,6 +71,11 @@ const routes = [
     path: "/login",
     name: "Login",
     component: () => import("../views/back/Login.vue")
+  },
+  {
+    path: "*",
+    name: "404",
+    component: () => import("../views/Error.vue")
   },
   {
     path: "/admin",

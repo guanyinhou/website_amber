@@ -1,5 +1,6 @@
 <template>
   <div class="cart">
+    <Loading :active.sync="isLoading"></Loading>
     <div class="container">
       <h1 class="d-inline-block">購物車</h1>
       <hr />
@@ -21,6 +22,9 @@
               <tr v-for="item in carts" :key="item.product.id + 1">
                 <td class="name">
                   <a href="#">{{ item.product.title }}</a>
+                  <!-- <div v-if="coupon.enabled" class="text-success">
+                    已套用優惠卷
+                  </div> -->
                 </td>
                 <td class="img">
                   <img :src="item.product.imageUrl[0]" alt="" />
@@ -90,11 +94,21 @@
                   {{ cartTotal | currency }}
                 </td>
               </tr>
+              <!-- <tr v-if="coupon.enabled">
+                <td class="text-right" colspan="5">
+                  <span class="total-word">折扣價</span>
+                </td>
+                <td class="text-center prod-price">
+                  {{
+                    (cartTotal - cartTotal * (coupon.percent / 100)) | currency
+                  }}
+                </td>
+              </tr> -->
             </tfoot>
           </table>
         </div>
         <div class="float-left">
-          <div class="input-group mb-3">
+          <!-- <div class="input-group mb-3">
             <input
               type="text"
               class="form-control"
@@ -110,12 +124,12 @@
                 套用優惠碼
               </button>
             </div>
-          </div>
-        </div>
-        <div class="float-right">
-          <button class="btn first" type="button" @click="rmAllCartItem">
+          </div> -->
+          <button class="btn" type="button" @click="rmAllCartItem">
             <i class="fa fa-trash"></i> 刪除所有品項
           </button>
+        </div>
+        <div class="float-right">
           <router-link class="btn" to="checkout">
             <i class="fa fa-check"></i> 結帳
           </router-link>
@@ -135,32 +149,34 @@
 export default {
   data() {
     return {
+      isLoading: false,
       tempData: {},
       status: {
         loadingNum: ""
       },
       carts: [],
       cartTotal: 0,
-      cartPageTotalNum: 0,
-      coupon_code: ""
+      cartPageTotalNum: 0
+      // coupon: {},
+      // coupon_code: ""
     };
   },
   methods: {
-    addCoupon() {
-      this.isLoading = true;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/coupon/search`;
-      this.$http
-        .post(url, { code: this.coupon_code })
-        .then(res => {
-          this.coupon = res.data.data;
-          this.isLoading = false;
-        })
-        .catch(err => {
-          console.log(err);
-          this.$bus.$emit("message:push", "加入失敗", "danger");
-          this.isLoading = false;
-        });
-    },
+    // addCoupon() {
+    //   this.isLoading = true;
+    //   const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/coupon/search`;
+    //   this.$http
+    //     .post(url, { code: this.coupon_code })
+    //     .then(res => {
+    //       this.coupon = res.data.data;
+    //       this.isLoading = false;
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //       this.$bus.$emit("message:push", "加入失敗", "danger");
+    //       this.isLoading = false;
+    //     });
+    // },
     updateCartTotal() {
       this.carts.forEach(item => {
         this.cartTotal += item.product.price * item.quantity;

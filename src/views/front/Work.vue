@@ -8,10 +8,26 @@
       <hr />
       <div class="prod-zone">
         <div class="row">
-          <div class="col-sm-6">
-            <VueSlickCarousel v-bind="settings">
+          <div class="col-md-6">
+            <VueSlickCarousel
+              ref="c1"
+              :asNavFor="$refs.c2"
+              :focusOnSelect="true"
+            >
               <div v-for="(item, idx) in 5" :key="idx">
                 <div class="prod-img">
+                  <img :src="work.imageUrl[idx]" />
+                </div>
+              </div>
+            </VueSlickCarousel>
+            <VueSlickCarousel
+              ref="c2"
+              :asNavFor="$refs.c1"
+              :slidesToShow="4"
+              :focusOnSelect="true"
+            >
+              <div v-for="(item, idx) in 5" :key="idx">
+                <div class="prod-img-small">
                   <img :src="work.imageUrl[idx]" />
                 </div>
               </div>
@@ -20,7 +36,7 @@
                 <img :src="work.imageUrl[idx]" />
               </div> -->
           </div>
-          <div class="col-sm-5 offset-sm-1">
+          <div class="col-md-5 offset-md-1">
             <div class="prod-content">
               <div class="sub-title">作品材質</div>
               <p>{{ work.description }}</p>
@@ -42,7 +58,7 @@
                 </div>
               </span>
             </div>
-            <div class="add-to-cart">
+            <div class="add-to-cart-zone">
               <button class="btn" @click="addToCart(work.id)">
                 <i class="fa fa-cart-plus"></i> 加入購物車
               </button>
@@ -98,6 +114,24 @@
                   </div>
                 </div>
               </router-link>
+              <a
+                href="#"
+                class="add-to-cart"
+                @click.prevent="addToCart(viewedProd.id)"
+              >
+                <i class="fa fa-cart-plus"></i>
+              </a>
+              <a
+                href="#"
+                class="add-to-favorite"
+                @click.prevent="updateFavorite(viewedProd.id)"
+              >
+                <i
+                  class="fa fa-heart-o"
+                  v-if="favorited.indexOf(viewedProd.id) === -1"
+                ></i>
+                <i class="fa fa-heart text-danger" v-else></i>
+              </a>
             </div>
           </VueSlickCarousel>
         </div>
@@ -130,6 +164,24 @@
                   </div>
                 </div>
               </router-link>
+              <a
+                href="#"
+                class="add-to-cart"
+                @click.prevent="addToCart(moreworks.id)"
+              >
+                <i class="fa fa-cart-plus"></i>
+              </a>
+              <a
+                href="#"
+                class="add-to-favorite"
+                @click.prevent="updateFavorite(moreworks.id)"
+              >
+                <i
+                  class="fa fa-heart-o"
+                  v-if="favorited.indexOf(moreworks.id) === -1"
+                ></i>
+                <i class="fa fa-heart text-danger" v-else></i>
+              </a>
             </div>
           </VueSlickCarousel>
         </div>
@@ -148,16 +200,16 @@ export default {
   },
   data() {
     return {
-      settings: {
-        fade: true,
-        dots: true,
-        dotsClass: "slick-dots custom-dot-class",
-        edgeFriction: 0.35,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1
-      },
+      // settings: {
+      //   fade: true,
+      //   dots: true,
+      //   dotsClass: "slick-dots custom-dot-class",
+      //   edgeFriction: 0.35,
+      //   infinite: true,
+      //   speed: 500,
+      //   slidesToShow: 1,
+      //   slidesToScroll: 1
+      // },
       settings1: {
         dots: true,
         infinite: false,

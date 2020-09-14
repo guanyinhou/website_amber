@@ -18,6 +18,9 @@
             <tr v-for="item in carts" :key="item.product.id + 1">
               <td class="name">
                 <a href="#">{{ item.product.title }}</a>
+                <div v-if="coupon.enabled" class="text-success">
+                  已套用優惠卷
+                </div>
               </td>
               <td class="img">
                 <img :src="item.product.imageUrl[0]" alt="" />
@@ -29,7 +32,10 @@
                   </span>
                 </div>
               </td>
-              <td class="unit">{{ item.product.unit }}</td>
+              <td class="unit">
+                <span class="hide-575">{{ item.quantity }} </span>
+                {{ item.product.unit }}
+              </td>
               <td class="prod-price">
                 {{ item.product.price | currency }}
               </td>
@@ -52,24 +58,50 @@
                 {{ cartTotal | currency }}
               </td>
             </tr>
-            <tr>
+            <tr v-if="coupon.enabled">
               <td class="text-right" colspan="4">
                 <span class="total-word">折扣</span>
               </td>
               <td class="text-center prod-price">
-                - {{ cartTotal | currency }}
+                - {{ (cartTotal * (coupon.percent / 100)) | currency }}
               </td>
             </tr>
             <tr>
               <td class="text-right" colspan="4">
-                <span class="total-word">總計</span>
+                <b class="total-word">總計</b>
               </td>
-              <td class="text-center prod-price">
-                {{ cartTotal | currency }}
+              <td class="text-center prod-price" v-if="coupon.enabled">
+                <b>
+                  {{
+                    (cartTotal - cartTotal * (coupon.percent / 100)) | currency
+                  }}
+                </b>
+              </td>
+              <td v-else class="text-center prod-price">
+                <b>{{ cartTotal | currency }}</b>
               </td>
             </tr>
           </tfoot>
         </table>
+      </div>
+      <div class="float-left coupon-input">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="請輸入優惠碼"
+            v-model="coupon_code"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              @click="addCoupon"
+            >
+              套用優惠碼
+            </button>
+          </div>
+        </div>
       </div>
       <br />
       <div class="my-5 justify-content-center">
@@ -85,6 +117,7 @@
                 >
                   <label for="name">收件人姓名</label>
                   <input
+                    name="收件人姓名"
                     type="text"
                     id="name"
                     class="form-control"
@@ -103,6 +136,7 @@
                 >
                   <label for="email">收件人信箱</label>
                   <input
+                    name="收件人信箱"
                     type="email"
                     id="email"
                     class="form-control"
@@ -121,6 +155,7 @@
                 >
                   <label for="tel">收件人電話</label>
                   <input
+                    name="收件人電話"
                     type="tel"
                     id="tel"
                     class="form-control"
@@ -139,6 +174,7 @@
                 >
                   <label for="address">收件人地址</label>
                   <input
+                    name="收件人地址"
                     type="text"
                     id="address"
                     class="form-control"
@@ -167,11 +203,12 @@
                   cols="30"
                   rows="3"
                   class="form-control"
+                  v-model="form.message"
                 ></textarea>
               </div>
               <div class="text-center">
-                <button class="btn btn" type="submit" :disabled="invalid">
-                  送出表單
+                <button class="btn full-479" type="submit" :disabled="invalid">
+                  <i class="fa fa-send"></i> 送出表單
                 </button>
               </div>
             </div>
@@ -196,10 +233,50 @@ export default {
         address: "",
         payment: "",
         message: ""
-      }
+      },
+      coupon: {},
+      coupon_code: ""
     };
   },
   methods: {
+    createOrder() {
+      this.isLoading = true;
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/orders`;
+      const order = { ...this.form };
+
+      if (this.coupon.enabled) {
+        order.coupon = this.coupon.code;
+      }
+
+      this.$http
+        .post(url, order)
+        .then(res => {
+          if (res.data.data.id) {
+            this.$router.push(`/checkout_result/${res.data.data.id}`);
+          }
+          this.isLoading = false;
+        })
+        .catch(err => {
+          console.log(err);
+          this.$bus.$emit("message:push", "訂單建立失敗", "danger");
+          this.isLoading = false;
+        });
+    },
+    addCoupon() {
+      this.isLoading = true;
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/coupon/search`;
+      this.$http
+        .post(url, { code: this.coupon_code })
+        .then(res => {
+          this.coupon = res.data.data;
+          this.isLoading = false;
+        })
+        .catch(err => {
+          console.log(err);
+          this.$bus.$emit("message:push", "加入失敗", "danger");
+          this.isLoading = false;
+        });
+    },
     updateCartTotal() {
       this.carts.forEach(item => {
         this.cartTotal += item.product.price * item.quantity;

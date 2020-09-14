@@ -24,7 +24,7 @@
 import Gototop from "@/components/Gototop.vue";
 import Toast from "@/components/Toast.vue";
 import Footer from "@/components/Footer.vue";
-import bg from "./assets/img/about/OPL00009-1.jpg";
+import bg from "./assets/img/about/OPS00004-1.jpg";
 export default {
   components: {
     Gototop,

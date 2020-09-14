@@ -4,6 +4,18 @@
       <router-link class="navbar-brand" href="#" to="/">
         The Art of Amber Wu
       </router-link>
+      <div class="hide-991 icon-obj-zone">
+        <router-link class="icon-obj" to="/favorite">
+          <i class="fa fa-heart"></i>
+          <FavoriteNum />
+        </router-link>
+        <router-link class="icon-obj" to="/cart">
+          <i class="fa fa-shopping-cart"></i>
+          <span class="badge badge-pill badge-danger">
+            {{ cartTotalNum }}
+          </span>
+        </router-link>
+      </div>
       <button
         class="navbar-toggler"
         type="button"
@@ -43,7 +55,7 @@
             </router-link>
           </li>
           <span class="ml-auto d-flex">
-            <li class="nav-item">
+            <li class="nav-item show-991">
               <router-link class="nav-link" to="/favorite">
                 <i class="fa fa-heart show-991"></i>
                 <span class="hide-991">我的最愛</span>
@@ -53,7 +65,7 @@
                 </span> -->
               </router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item show-991">
               <router-link class="nav-link" to="/cart">
                 <i class="fa fa-shopping-cart show-991"></i>
                 <span class="hide-991">購物車</span>
@@ -97,6 +109,9 @@ export default {
     });
   },
   mounted() {
+    // $(".navbar-toggler").on("click", function(){
+    //   $(this).children(".navbar-toggler-icon").css()
+    // });
     $(".nav-link").on("click", function() {
       // console.log("test");
       $(this)

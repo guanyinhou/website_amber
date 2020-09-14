@@ -79,7 +79,7 @@
               </td>
               <td class="align-middle">
                 {{ item.product.title }}
-                <div v-if="item.coupon" class="text-success">
+                <div v-if="coupon.enabled" class="text-success">
                   已套用優惠卷
                 </div>
               </td>
@@ -405,6 +405,7 @@ export default {
         .get(url)
         .then(res => {
           this.cart = res.data.data;
+          console.log(this.cart);
           this.cartTotal = 0;
           this.cart.forEach(item => {
             console.log(item);
