@@ -10,6 +10,7 @@
         <li data-target="#carouselExampleFade" data-slide-to="1"></li>
       </ol> -->
       <div class="carousel-inner">
+        <div class="skip">Skip</div>
         <div class="carousel-item cover active">
           <!-- <img src="../../assets/img/slider/slider01.jpg" class="d-block w-100" alt="..."> -->
           <div class="carousel-caption">
@@ -103,6 +104,9 @@ export default {
     $(".carousel").carousel({
       interval: 5000
     });
+    setTimeout(function() {
+      $(".skip").fadeIn();
+    }, 20000);
   }
 };
 </script>
