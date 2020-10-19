@@ -6,8 +6,8 @@ module.exports = {
       args[0].meta = {
         keywords: "plein, Amber Wu",
         description: "Amber Wu's main website"
-      }
+      };
       return args;
-    })
+    });
   }
-}
+};
