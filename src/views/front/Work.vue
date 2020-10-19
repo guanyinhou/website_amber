@@ -16,7 +16,7 @@
             >
               <div v-for="(item, idx) in 5" :key="idx">
                 <div class="prod-img">
-                  <img :src="work.imageUrl[idx]" />
+                  <img :src="work.imageUrl[idx]" :alt="idx" />
                 </div>
               </div>
             </VueSlickCarousel>
@@ -28,7 +28,7 @@
             >
               <div v-for="(item, idx) in 5" :key="idx">
                 <div class="prod-img-small">
-                  <img :src="work.imageUrl[idx]" />
+                  <img :src="work.imageUrl[idx]" :alt="idx" />
                 </div>
               </div>
             </VueSlickCarousel>
@@ -59,17 +59,23 @@
               </span>
             </div>
             <div class="add-to-cart-zone">
-              <button class="btn" @click="addToCart(work.id)">
+              <button class="btn" @click="addToCart(work.id)" type="button">
                 <i class="fa fa-cart-plus"></i> 加入購物車
               </button>
               <button
                 class="btn"
                 @click="updateFavorite(work.id)"
                 v-if="favorited.indexOf(work.id) === -1"
+                type="button"
               >
                 <i class="fa fa-heart-o"></i> 加入我的最愛
               </button>
-              <button class="btn" @click="updateFavorite(work.id)" v-else>
+              <button
+                class="btn"
+                @click="updateFavorite(work.id)"
+                v-else
+                type="button"
+              >
                 <i class="fa fa-heart text-danger"></i> 已加入我的最愛
               </button>
             </div>
@@ -92,7 +98,7 @@
             <div v-for="viewedProd in viewedProds" :key="viewedProd.id">
               <router-link class="more-work" :to="`/product/${viewedProd.id}`">
                 <div class="more-work-img">
-                  <img :src="viewedProd.imageUrl[0]" alt="viewedProd.title" />
+                  <img :src="viewedProd.imageUrl[0]" :alt="viewedProd.title" />
                 </div>
                 <div class="text-center">
                   <p>{{ viewedProd.title }}</p>
@@ -142,7 +148,7 @@
               <!-- <router-link :to="`/product/${prod.id}`"> -->
               <router-link :to="`/product/${morework.id}`" class="more-work">
                 <div class="more-work-img">
-                  <img :src="morework.imageUrl[0]" alt="morework.title" />
+                  <img :src="morework.imageUrl[0]" :alt="morework.title" />
                 </div>
                 <div class="text-center">
                   <p>{{ morework.title }}</p>
@@ -194,6 +200,7 @@
 import VueSlickCarousel from "vue-slick-carousel";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
+
 export default {
   components: {
     VueSlickCarousel

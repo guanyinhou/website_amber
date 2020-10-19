@@ -51,7 +51,7 @@
     <div class="container-fluid">
       <div class="row">
         <main role="main" class="col-md-12 ml-sm-auto px-4">
-          <router-view v-if="checkSuccess" :token="token" />
+          <router-view v-if="checkSuccess" />
         </main>
       </div>
     </div>
@@ -74,9 +74,6 @@ export default {
 
     const url = `${process.env.VUE_APP_APIPATH}/api/auth/check`;
 
-    // Axios 預設值
-    this.$http.defaults.headers.common.Authorization = `Bearer ${this.token}`;
-
     this.$http
       .post(url, { api_token: this.token })
       .then(res => {
@@ -87,6 +84,8 @@ export default {
 
           this.$bus.$emit("message:push", res.data.message, "danger");
         }
+        // Axios 預設值
+        this.$http.defaults.headers.common.Authorization = `Bearer ${this.token}`;
         this.checkSuccess = true;
       })
       .catch(err => {
@@ -96,7 +95,7 @@ export default {
   methods: {
     signout() {
       document.cookie = "tokenName=;expire=;";
-      window.location = "/website_amber/dist/#/";
+      this.$router.push({ name: "Login" });
     }
   }
 };

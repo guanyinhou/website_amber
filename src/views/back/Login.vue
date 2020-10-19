@@ -1,10 +1,10 @@
 <template>
-  <div class="login">
+  <div class="front login">
     <loading :active.sync="isLoading"></loading>
     <div class="container">
       <div class="row">
-        <div class="col-sm-4"></div>
-        <div class="col-sm-4">
+        <div class="col-xl-4 col-lg-3 col-md-3 col-sm-2 col-1"></div>
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-8 col-10">
           <div class="text-center">
             <h1 class="theme">
               The Art of<br />
@@ -41,7 +41,7 @@
             </form>
           </div>
         </div>
-        <div class="col-sm-4"></div>
+        <div class="col-xl-4 col-lg-3 col-md-3 col-sm-2 col-1"></div>
       </div>
     </div>
   </div>

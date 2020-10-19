@@ -8,7 +8,7 @@
         <div class="col-md-6">
           <div class="creator text-center">
             <div class="creator-img">
-              <img src="./../../assets/img/artist1.jpg" alt="" />
+              <img src="./../../assets/img/artist1.jpg" alt="聯絡我們" />
             </div>
             <div class="creator-name">
               <h3>Amber Wu</h3>

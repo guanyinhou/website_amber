@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="front">
     <nav class="navbar navbar-top fixed-top navbar-expand-lg navbar-dark">
       <router-link class="navbar-brand" href="#" to="/">
         The Art of Amber Wu
@@ -88,6 +88,7 @@
 <script>
 /* global $ */
 import FavoriteNum from "@/components/FavoriteNum.vue";
+
 export default {
   components: {
     FavoriteNum
