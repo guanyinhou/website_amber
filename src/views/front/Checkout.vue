@@ -4,6 +4,9 @@
       <h1>結帳</h1>
       <hr />
       <div class="table-responsive cart-area">
+        <div class="view-prod">
+          <button class="btn">檢閱購買商品</button>
+        </div>
         <table class="table">
           <thead>
             <tr>
@@ -15,7 +18,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in carts" :key="item.product.id + 1">
+            <tr
+              v-for="item in carts"
+              :key="item.product.id + 1"
+              class="cart-prod"
+            >
               <td class="name">
                 <a href="#">{{ item.product.title }}</a>
                 <div v-if="coupon.enabled" class="text-info">
@@ -44,7 +51,7 @@
               <td class="text-right" colspan="4">
                 <span class="total-word">總數</span>
               </td>
-              <td class="text-center">
+              <td class="text-right">
                 {{ cartPageTotalNum }}
               </td>
             </tr>
@@ -54,7 +61,7 @@
               <td class="text-right" colspan="4">
                 <span class="total-word">小計</span>
               </td>
-              <td class="text-center prod-price">
+              <td class="text-right prod-price">
                 {{ cartTotal | currency }}
               </td>
             </tr>
@@ -62,7 +69,7 @@
               <td class="text-right" colspan="4">
                 <span class="total-word">折扣</span>
               </td>
-              <td class="text-center prod-price">
+              <td class="text-right prod-price">
                 - {{ (cartTotal * (coupon.percent / 100)) | currency }}
               </td>
             </tr>
@@ -70,14 +77,14 @@
               <td class="text-right" colspan="4">
                 <b class="total-word">總計</b>
               </td>
-              <td class="text-center prod-price" v-if="coupon.enabled">
+              <td class="text-right prod-price" v-if="coupon.enabled">
                 <b>
                   {{
                     (cartTotal - cartTotal * (coupon.percent / 100)) | currency
                   }}
                 </b>
               </td>
-              <td v-else class="text-center prod-price">
+              <td v-else class="text-right prod-price">
                 <b>{{ cartTotal | currency }}</b>
               </td>
             </tr>
@@ -220,6 +227,7 @@
 </template>
 
 <script>
+/* global $ */
 export default {
   data() {
     return {
@@ -237,6 +245,23 @@ export default {
       coupon: {},
       coupon_code: ""
     };
+  },
+  mounted() {
+    $(".view-prod .btn").on("click", function() {
+      console.log("click");
+      $(this)
+        .parent()
+        .next("table")
+        .children("thead")
+        // .stop()
+        .toggle();
+      $(this)
+        .parent()
+        .next("table")
+        .find(".cart-prod")
+        // .stop()
+        .toggle();
+    });
   },
   methods: {
     createOrder() {

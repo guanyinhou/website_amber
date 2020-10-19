@@ -12,56 +12,56 @@ const routes = [
   },
   {
     path: "/front",
-    name: "Home",
+    name: "Front",
     component: () => import("../views/front/layout/Navbar.vue"),
     children: [
       {
-        name: "Home",
+        name: "Front",
         path: "/home",
         component: () => import("../views/front/Home.vue")
       },
       {
-        name: "About",
+        name: "Front",
         path: "/about",
         component: () => import("../views/front/About.vue")
       },
       {
-        name: "Works",
+        name: "Front",
         path: "/works",
         component: () => import("../views/front/Works.vue")
       },
       {
-        name: "Work",
+        name: "Front",
         path: "/product/:id",
         component: () => import("../views/front/Work.vue")
       },
       {
-        name: "Contact",
+        name: "Front",
         path: "/contact",
         component: () => import("../views/front/Contact.vue")
       },
       {
-        name: "Cart",
+        name: "Front",
         path: "/cart",
         component: () => import("../views/front/Cart.vue")
       },
       {
-        name: "Favorite",
+        name: "Front",
         path: "/favorite",
         component: () => import("../views/front/Favorite.vue")
       },
       {
-        name: "Checkout",
+        name: "Front",
         path: "/checkout",
         component: () => import("../views/front/Checkout.vue")
       },
       {
-        name: "CheckoutFinish",
+        name: "Front",
         path: "/checkout_result/:orderId",
         component: () => import("../views/front/CheckoutFinish.vue")
       },
       {
-        name: "Order",
+        name: "Front",
         path: "/order",
         component: () => import("../views/front/Order.vue")
       }
@@ -69,7 +69,7 @@ const routes = [
   },
   {
     path: "/login",
-    name: "Login",
+    name: "Front",
     component: () => import("../views/back/Login.vue")
   },
   {

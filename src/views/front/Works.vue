@@ -1,5 +1,6 @@
 <template>
   <div class="works">
+    <Loading :active.sync="isLoading"></Loading>
     <div class="container">
       <h1>作品集</h1>
       <hr />
@@ -91,7 +92,7 @@
 
       <hr />
       <div class="float-right">
-        <pagination :pages="pagination" @update="getProds" />
+        <Pagination :pages="Pagination" @update="getProds" />
       </div>
     </div>
   </div>
@@ -100,17 +101,18 @@
 <script>
 // /* global $ */
 // import { VueEditor } from "vue2-editor/dist/vue2-editor.core";
-import pagination from "@/components/Pagination";
+import Pagination from "@/components/Pagination.vue";
+
 export default {
   components: {
-    pagination
+    Pagination
     // VueEditor
   },
   data() {
     return {
       prods: [],
       isLoading: false,
-      pagination: {},
+      Pagination: {},
       // isAll: true,
       // isLand: false,
       // isSea: false,
@@ -149,7 +151,7 @@ export default {
         .then(res => {
           this.isLoading = false;
           console.log(res);
-          // eslint-disable-next-line no-undef
+
           this.$bus.$emit(
             "message:push",
             res.data.data.product.title + "已加入購物車",
@@ -165,7 +167,7 @@ export default {
           // console.log(err.response);
           console.dir(err.response.data.errors[0]);
           // alert(err.response.data.errors[0]);
-          // eslint-disable-next-line no-undef
+
           this.$bus.$emit(
             "message:push",
             err.response.data.errors[0],
@@ -194,7 +196,7 @@ export default {
           this.isLoading = false;
           this.prods = res.data.data;
           console.log(this.prods);
-          this.pagination = res.data.meta.pagination;
+          this.Pagination = res.data.meta.pagination;
         })
         .catch(err => {
           console.dir(err);
@@ -222,7 +224,7 @@ export default {
     //       console.log(res);
     //       // this.prods.$set.length = 30;
     //       // console.log(this.prods.length);
-    //       this.pagination = res.data.meta.pagination;
+    //       this.Pagination = res.data.meta.Pagination;
     //       let obj = JSON.parse(JSON.stringify(this.prods));
     //       // let land = JSON.parse(JSON.stringify(this.prods));
     //       // let sea = JSON.parse(JSON.stringify(this.prods));
@@ -250,7 +252,7 @@ export default {
     //       console.log(res);
     //       // this.prods.$set.length = 30;
     //       console.log(this.prods.length);
-    //       this.pagination = res.data.meta.pagination;
+    //       this.Pagination = res.data.meta.Pagination;
     //       let obj = JSON.parse(JSON.stringify(this.prods));
     //       // let land = JSON.parse(JSON.stringify(this.prods));
     //       // let sea = JSON.parse(JSON.stringify(this.prods));

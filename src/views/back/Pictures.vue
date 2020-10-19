@@ -17,11 +17,11 @@
         <tr v-for="(pic, i) in pics" :key="i">
           <td>{{ i + 1 }}</td>
           <td>
-            <img :src="pic.path" alt="" class="img-fluid" />
+            <img :src="pic.path" :alt="pic.path" class="img-fluid" />
           </td>
           <td>
             <div class="btn-group btn-group-sm">
-              <button class="btn" @click="openModal(pic)">
+              <button class="btn" @click="openModal(pic)" type="button">
                 刪除
               </button>
             </div>
@@ -31,7 +31,7 @@
     </table>
     <hr />
     <div class="float-right">
-      <pagination :pages="pagination" @update="getData" />
+      <Pagination :pages="Pagination" @update="getData" />
     </div>
     <!-- deleteModal -->
     <div
@@ -79,17 +79,18 @@
 
 <script>
 /* global $ */
-import pagination from "@/components/Pagination.vue";
+import Pagination from "@/components/Pagination.vue";
+
 export default {
   components: {
-    pagination
+    Pagination
   },
   data() {
     return {
       isLoading: false,
       tempData: {},
       pics: {},
-      pagination: {}
+      Pagination: {}
     };
   },
   created() {
@@ -105,7 +106,7 @@ export default {
         .then(res => {
           console.log(res);
           this.pics = res.data.data;
-          this.pagination = res.data.meta.pagination;
+          this.Pagination = res.data.meta.pagination;
           this.isLoading = false;
         })
         .catch(err => {
