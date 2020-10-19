@@ -17,11 +17,9 @@
                   v-slot="{ errors, classes }"
                   rules="required"
                 >
-                  <label for="email">電子郵件信箱</label>
                   <input
-                    id="email"
                     type="email"
-                    name="電子郵件信箱"
+                    name="Email"
                     class="form-control"
                     placeholder="E-mail"
                     v-model="order.email"
@@ -30,15 +28,14 @@
                   />
                   <span class="text-danger">{{ errors[0] }}</span>
                 </validation-provider>
+                <br />
                 <validation-provider
                   v-slot="{ errors, classes }"
                   rules="required"
                 >
-                  <label for="orderNumber">訂單編號</label>
                   <input
-                    id="orderNumber"
                     type="text"
-                    name="訂單編號"
+                    name="Order Number"
                     class="form-control"
                     placeholder="Order Number"
                     v-model="order.id"
@@ -85,14 +82,7 @@
                 <td v-if="result.paid">已付款</td>
                 <td v-else>未付款</td>
                 <td>
-                  <button
-                    class="btn"
-                    type="button"
-                    data-toggle="modal"
-                    data-target="#prodModal"
-                  >
-                    詳細
-                  </button>
+                  <a href="">詳細</a>
                 </td>
               </tr>
             </tbody>
@@ -100,108 +90,6 @@
         </div>
       </div>
     </div>
-    <!-- prodModal -->
-    <form>
-      <div
-        class="modal fade"
-        id="prodModal"
-        tabindex="-1"
-        aria-labelledby="prodModal"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
-                <span>訂單內容</span>
-              </h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-sm-12">
-                  <!-- 輸入圖片連結 -->
-                  <div class="form-group">
-                    <label>訂單編號：</label>
-                    <p>{{ result.id }}</p>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>訂單日期：</label>
-                    <p>{{ result.created.datetime }}</p>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>訂單金額：</label>
-                    <p>{{ result.amount | currency }}</p>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>付款狀態：</label>
-                    <p v-if="result.paid">已付款</p>
-                    <p v-else>未付款</p>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>付款方式：</label>
-                    <p>{{ result.payment }}</p>
-                  </div>
-                </div>
-                <div class="col-sm-12">
-                  <div class="form-group">
-                    <label>購買內容：</label>
-                    <div class="buying-list">
-                      <div
-                        class="buying-prod"
-                        v-for="(item, idx) in result.products"
-                        :key="idx"
-                      >
-                        <div class="buying-img">
-                          <img
-                            :src="item.product.imageUrl[0]"
-                            :alt="item.product.title"
-                          />
-                        </div>
-                        <div class="buying-name">
-                          {{ item.product.title }}
-                        </div>
-                        <div class="buying-name">
-                          {{ item.quantity }} {{ item.product.unit }}
-                        </div>
-                        <div class="buying-name">
-                          {{ item.product.price | currency }}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                確認
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
   </div>
 </template>
 
@@ -211,8 +99,8 @@ export default {
     return {
       isLoading: false,
       order: {
-        email: "fef!@greh.uyi",
-        id: "UP2xCUQLl0EgiHJGY3Yq8NiiX0cVWBI1c4VMki42juRCMJPyfvZFOQZM9N13gcKz"
+        email: "fwe@geg.yukt",
+        id: "ex9cr2VHx2tOPTGxxomQvTPQK5qy8zX6w85cFOJwlkawYdan3X9QtnxgURH407tP"
       },
       orders: {},
       result: {

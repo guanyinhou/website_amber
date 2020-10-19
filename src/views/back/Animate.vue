@@ -8,7 +8,7 @@
     <div class="row mt-4">
       <div class="col-sm-3 mb-4" v-for="(prod, i) in prods" :key="i">
         <div class="card">
-          <img :src="prod.imageUrl[0]" class="card-img-top" :alt="prod.title" />
+          <img :src="prod.imageUrl[0]" class="card-img-top" alt="" />
           <div class="card-body">
             <span class="badge badge-secondary float-right ml-2">
               {{ prod.category }}
@@ -34,7 +34,6 @@
               class="btn btn-info btn-sm ml-auto"
               :disabled="status.loadingItem === prod.id"
               @click="addToCart(prod)"
-              type="button"
             >
               <i
                 class="spinner-grow spinner-grow-sm"
@@ -265,11 +264,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <img
-              :src="tempProd.imageUrl[0]"
-              class="img-fluid"
-              :alt="tempProd.title"
-            />
+            <img :src="tempProd.imageUrl[0]" class="img-fluid" alt="" />
             <blockquote class="blockquote mt-3">
               <p class="mb-0"></p>
               <footer class="blockquote-footer text-right">

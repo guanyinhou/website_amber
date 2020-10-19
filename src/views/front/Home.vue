@@ -19,13 +19,13 @@
         </p>
       </div>
       <div class="desc-img">
-        <img src="../../assets/img/home/home-1.jpg" alt="hmoe1" />
+        <img src="../../assets/img/home/home-1.jpg" alt="" />
       </div>
       <div class="desc-img">
-        <img src="../../assets/img/home/home-2.jpg" alt="hmoe2" />
+        <img src="../../assets/img/home/home-2.jpg" alt="" />
       </div>
       <div class="desc-img">
-        <img src="../../assets/img/home/home-3.jpg" alt="hmoe3" />
+        <img src="../../assets/img/home/home-3.jpg" alt="" />
       </div>
       <br />
       <br />
@@ -38,27 +38,27 @@
           <div v-for="item in special" :key="item.id">
             <router-link :to="`/product/${item.id}`" class="special-work">
               <div class="special-work-img">
-                <img :src="item.imageUrl[0]" :alt="item.title" />
+                <img :src="item.imageUrl[0]" alt="morework.title" />
               </div>
-              <!-- <div class="text-center"> -->
-              <p>{{ item.title }}</p>
-              <div class="special-work-price">
-                <div
-                  class="prod-origin-price"
-                  v-if="item.origin_price === item.price"
-                >
-                  {{ item.origin_price | currency }}
-                </div>
-                <span v-else>
-                  <div class="prod-origin-price old-price">
+              <div class="text-center">
+                <p>{{ item.title }}</p>
+                <div class="special-work-price">
+                  <div
+                    class="prod-origin-price"
+                    v-if="item.origin_price === item.price"
+                  >
                     {{ item.origin_price | currency }}
                   </div>
-                  <div class="prod-price">
-                    <h2>{{ item.price | currency }}</h2>
-                  </div>
-                </span>
+                  <span v-else>
+                    <div class="prod-origin-price old-price">
+                      {{ item.origin_price | currency }}
+                    </div>
+                    <div class="prod-price">
+                      <h2>{{ item.price | currency }}</h2>
+                    </div>
+                  </span>
+                </div>
               </div>
-              <!-- </div> -->
             </router-link>
             <a href="#" class="add-to-cart" @click.prevent="addToCart(item.id)">
               <i class="fa fa-cart-plus"></i>
@@ -115,7 +115,6 @@ import VueSlickCarousel from "vue-slick-carousel";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 import desc from "../../assets/img/bg.jpg";
-
 export default {
   components: {
     VueSlickCarousel
@@ -196,7 +195,7 @@ export default {
         .then(res => {
           this.isLoading = false;
           console.log(res);
-
+          // eslint-disable-next-line no-undef
           this.$bus.$emit(
             "message:push",
             res.data.data.product.title + "已加入購物車",
@@ -212,7 +211,7 @@ export default {
           // console.log(err.response);
           console.dir(err.response.data.errors[0]);
           // alert(err.response.data.errors[0]);
-
+          // eslint-disable-next-line no-undef
           this.$bus.$emit(
             "message:push",
             err.response.data.errors[0],

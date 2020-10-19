@@ -1,6 +1,5 @@
 <template>
   <div class="cart favorite">
-    <Loading :active.sync="isLoading"></Loading>
     <div class="container">
       <h1 class="d-inline-block">我的最愛</h1>
       <hr />
@@ -24,23 +23,19 @@
                   <a href="#">{{ item.title }}</a>
                 </td>
                 <td class="img">
-                  <img :src="item.imageUrl[0]" :alt="item.title" />
+                  <img :src="item.imageUrl[0]" alt="" />
                 </td>
                 <td class="unit">{{ item.unit }}</td>
                 <td class="prod-price">
                   {{ item.price | currency }}
                 </td>
                 <td class="add-to-cart">
-                  <button class="btn" @click="addToCart(item.id)" type="button">
+                  <button class="btn" @click="addToCart(item.id)">
                     <i class="fa fa-cart-plus"></i>
                   </button>
                 </td>
                 <td class="trash">
-                  <button
-                    class="btn"
-                    @click="rmFavorited(item.id)"
-                    type="button"
-                  >
+                  <button class="btn" @click="rmFavorited(item.id)">
                     <i class="fa fa-times"></i>
                   </button>
                 </td>
@@ -186,12 +181,10 @@ export default {
         });
     },
     getCart() {
-      // this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
       this.$http
         .get(url)
         .then(res => {
-          // this.isLoading = false;
           console.log("getCart", res);
           this.carts = res.data.data;
           this.cartTotalNum = 0;
@@ -219,7 +212,7 @@ export default {
         .then(res => {
           this.isLoading = false;
           console.log(res);
-
+          // eslint-disable-next-line no-undef
           this.$bus.$emit(
             "message:push",
             res.data.data.product.title + "已加入購物車",
@@ -235,7 +228,7 @@ export default {
           // console.log(err.response);
           console.dir(err.response.data.errors[0]);
           // alert(err.response.data.errors[0]);
-
+          // eslint-disable-next-line no-undef
           this.$bus.$emit(
             "message:push",
             err.response.data.errors[0],

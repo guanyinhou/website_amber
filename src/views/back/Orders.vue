@@ -54,23 +54,22 @@
     </table>
     <hr />
     <div class="float-right">
-      <Pagination :pages="Pagination" @update="getOrders" />
+      <pagination :pages="pagination" @update="getOrders" />
     </div>
   </div>
 </template>
 
 <script>
-import Pagination from "@/components/Pagination.vue";
-
+import pagination from "@/components/Pagination.vue";
 export default {
   components: {
-    Pagination
+    pagination
   },
   data() {
     return {
       isLoading: false,
       isNew: false,
-      Pagination: {},
+      pagination: {},
       orders: {
         user: {}
       }
@@ -89,7 +88,7 @@ export default {
         .then(res => {
           console.log(res);
           this.orders = res.data.data;
-          this.Pagination = res.data.meta.pagination;
+          this.pagination = res.data.meta.pagination;
           this.isLoading = false;
         })
         .catch(err => {

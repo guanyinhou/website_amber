@@ -27,10 +27,7 @@
                   </div> -->
                 </td>
                 <td class="img">
-                  <img
-                    :src="item.product.imageUrl[0]"
-                    :alt="item.product.title"
-                  />
+                  <img :src="item.product.imageUrl[0]" alt="" />
                 </td>
                 <td class="calc">
                   <div class="input-group">
@@ -74,11 +71,7 @@
                   {{ item.product.price | currency }}
                 </td>
                 <td class="trash">
-                  <button
-                    class="btn"
-                    @click="rmCartItem(item.product.id)"
-                    type="button"
-                  >
+                  <button class="btn" @click="rmCartItem(item.product.id)">
                     <i class="fa fa-trash"></i>
                   </button>
                 </td>
@@ -87,7 +80,7 @@
                 <td class="text-right" colspan="5">
                   <span class="total-word">總數</span>
                 </td>
-                <td class="text-right">
+                <td class="text-center">
                   {{ cartPageTotalNum }}
                 </td>
               </tr>
@@ -97,7 +90,7 @@
                 <td class="text-right" colspan="5">
                   <span class="total-word">總計</span>
                 </td>
-                <td class="text-right prod-price">
+                <td class="text-center prod-price">
                   {{ cartTotal | currency }}
                 </td>
               </tr>
@@ -256,12 +249,10 @@ export default {
         });
     },
     getCart() {
-      this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
       this.$http
         .get(url)
         .then(res => {
-          this.isLoading = false;
           console.log(res);
           this.carts = res.data.data;
           this.cartTotalNum = 0;

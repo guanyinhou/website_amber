@@ -3,7 +3,7 @@
     <Loading :active.sync="isLoading" />
     <div class="text-right mt-4">
       <h3 class="float-left">優惠卷列表</h3>
-      <button class="btn" @click="openCouponModal(`created`)" type="button">
+      <button class="btn" @click="openCouponModal(`created`)">
         建立新的優惠卷
       </button>
     </div>
@@ -29,17 +29,12 @@
           </td>
           <td>
             <div class="btn-group">
-              <button
-                class="btn btn-sm"
-                @click="openCouponModal(`edit`, item)"
-                type="button"
-              >
+              <button class="btn btn-sm" @click="openCouponModal(`edit`, item)">
                 編輯
               </button>
               <button
                 class="btn btn-sm"
                 @click="openCouponModal(`delete`, item)"
-                type="button"
               >
                 刪除
               </button>

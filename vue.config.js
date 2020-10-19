@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: "./",
+  publicPath: "/website_amber/dist/",
   chainWebpack: config => {
     config.plugin("html").tap(args => {
       args[0].title = "The Art of Amber Wu";

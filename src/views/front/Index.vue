@@ -22,7 +22,7 @@
         <div
           class="carousel-item"
           :style="{
-            backgroundImage: `url(${slider01})`
+            backgroundImage: 'url(' + slider01 + ')'
           }"
         >
           <!-- <img src="../../assets/img/slider/slider01.jpg" class="d-block w-100" alt="..."> -->
