@@ -8,8 +8,6 @@
       <div class="text-center">
         <validation-observer v-slot="{ invalid }">
           <form class="form-signin" @submit.prevent.enter="searchOrder(order)">
-            <br />
-            <br />
             <div class="row">
               <div class="col-sm-4"></div>
               <div class="col-sm-4">
@@ -50,9 +48,6 @@
               </div>
               <div class="col-sm-4"></div>
             </div>
-            <br />
-            <br />
-            <br />
             <div class="btn-zone">
               <button class="btn" type="submit" :disabled="invalid">
                 送出查詢
@@ -62,8 +57,6 @@
           </form>
         </validation-observer>
         <div class="order-result" :class="{ active: resultShow }">
-          <br />
-          <br />
           <br />
           <hr />
           <br />
@@ -223,36 +216,19 @@ export default {
       resultShow: false
     };
   },
-  // created() {
-  //   this.searchOrder();
-  // },
   methods: {
     searchOrder(order) {
-      // this.datetime = this.result.created.datetime;
       this.isLoading = true;
-      // const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/orders`;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/orders/${order.id}`;
-      console.log(url);
-      this.$http
-        .get(url)
-        .then(res => {
-          this.isLoading = false;
-          this.result = res.data.data;
-          console.log(this.result);
-          let userEmail = this.result.user.email;
-          if (order.email === userEmail) {
-            // order.forEach(ele => {
-            //   console.log(ele);
-            // });
-            // this.$router.push(`./order/${order.id}`);
-            this.order.id = "";
-            this.resultShow = true;
-          }
-        })
-        .catch(err => {
-          this.isLoading = false;
-          console.dir(err);
-        });
+      this.$http.get(url).then(res => {
+        this.isLoading = false;
+        this.result = res.data.data;
+        let userEmail = this.result.user.email;
+        if (order.email === userEmail) {
+          this.order.id = "";
+          this.resultShow = true;
+        }
+      });
     }
   }
 };

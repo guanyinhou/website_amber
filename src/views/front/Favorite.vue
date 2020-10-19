@@ -102,32 +102,24 @@ export default {
     getProds(page = 1) {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?page=${page}&paged=40`;
-      // const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?page=${page}`;
       this.$http
         .get(url)
         .then(res => {
           this.isLoading = false;
           this.prods = res.data.data;
-          // console.log("prods", this.prods);
           this.pagination = res.data.meta.pagination;
           this.getFavorite();
         })
         .catch(err => {
-          console.dir(err);
           this.isLoading = false;
           this.$bus.$emit("message:push", err.response.data.message, "danger");
         });
     },
     getFavorite() {
-      console.log(this.favorited);
-      // console.log(this.prods);
       this.favoriteTotalNum = this.favorited.length;
       this.favoriteProd = this.prods.filter(
         item => this.favorited.indexOf(item.id) > -1
-        // item => item.favorited === item.id
       );
-      // obj = this.prods.filter(item => item.category === "風景");
-      console.log(this.favoriteProd);
       this.updateFavoriteTotal();
       this.$bus.$emit("get-favorite-num");
     },
@@ -144,12 +136,10 @@ export default {
       }
       localStorage.setItem("favoriteList", JSON.stringify(this.favorited));
       this.getProds();
-      // this.$bus.$emit("message:push", "已移出我的最愛", "info");
       this.$bus.$emit("get-favorite-num:favorited", id);
     },
     rmAllFavorites() {
       this.favorited = [];
-      // this.favorited.splice(0);
       localStorage.setItem("favoriteList", JSON.stringify(this.favorited));
       this.getProds();
       this.$bus.$emit("message:push", "已全數移出", "info");
@@ -160,50 +150,32 @@ export default {
       // 等同addToCart
       // 加速數量選擇
       this.status.loadingNum = id;
-      console.log(this.status.loadingNum);
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
       const cart = {
         product: id,
         quantity
       };
-      console.log("updateCart", cart);
-      console.log(cart.quantity);
-      this.$http
-        .patch(url, cart)
-        .then(res => {
-          // 加速數量選擇
-          this.status.loadingNum = "";
-          console.log(res);
-          console.log(this.carts.length);
-          this.favoriteTotalNum = 0;
-          this.cartPageTotalNum = 0;
-          this.$bus.$emit("get-cart-num");
-          this.updateFavoriteTotal();
-          this.getCart();
-        })
-        .catch(err => {
-          console.dir(err);
-        });
+      this.$http.patch(url, cart).then(() => {
+        // 加速數量選擇
+        this.status.loadingNum = "";
+        this.favoriteTotalNum = 0;
+        this.cartPageTotalNum = 0;
+        this.$bus.$emit("get-cart-num");
+        this.updateFavoriteTotal();
+        this.getCart();
+      });
     },
     getCart() {
-      // this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
-      this.$http
-        .get(url)
-        .then(res => {
-          // this.isLoading = false;
-          console.log("getCart", res);
-          this.carts = res.data.data;
-          this.cartTotalNum = 0;
-          this.carts.forEach(item => {
-            this.cartPageTotalNum += item.quantity;
-          });
-          this.cartTotal = 0;
-          this.updateCartTotal();
-        })
-        .catch(err => {
-          console.dir(err);
+      this.$http.get(url).then(res => {
+        this.carts = res.data.data;
+        this.cartTotalNum = 0;
+        this.carts.forEach(item => {
+          this.cartPageTotalNum += item.quantity;
         });
+        this.cartTotal = 0;
+        this.updateCartTotal();
+      });
     },
     addToCart(id, qty = 1) {
       this.isLoading = true;
@@ -212,13 +184,11 @@ export default {
         product: id,
         quantity: qty
       };
-      console.log(cart);
 
       this.$http
         .post(url, cart)
         .then(res => {
           this.isLoading = false;
-          console.log(res);
 
           this.$bus.$emit(
             "message:push",
@@ -226,22 +196,14 @@ export default {
             "info"
           );
           this.$bus.$emit("get-cart-num");
-          // $("#modal").modal("hide");
-          // this.getCart();
         })
         .catch(err => {
           this.isLoading = false;
-          // console.log(err);
-          // console.log(err.response);
-          console.dir(err.response.data.errors[0]);
-          // alert(err.response.data.errors[0]);
-
           this.$bus.$emit(
             "message:push",
             err.response.data.errors[0],
             "danger"
           );
-          // $("#modal").modal("hide");
         });
     }
   },

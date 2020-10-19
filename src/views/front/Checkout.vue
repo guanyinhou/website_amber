@@ -248,18 +248,15 @@ export default {
   },
   mounted() {
     $(".view-prod .btn").on("click", function() {
-      console.log("click");
       $(this)
         .parent()
         .next("table")
         .children("thead")
-        // .stop()
         .toggle();
       $(this)
         .parent()
         .next("table")
         .find(".cart-prod")
-        // .stop()
         .toggle();
     });
   },
@@ -282,8 +279,7 @@ export default {
           this.isLoading = false;
         })
         .catch(err => {
-          console.log(err);
-          this.$bus.$emit("message:push", "訂單建立失敗", "danger");
+          this.$bus.$emit("message:push", `訂單建立失敗${err}`, "danger");
           this.isLoading = false;
         });
     },
@@ -297,8 +293,7 @@ export default {
           this.isLoading = false;
         })
         .catch(err => {
-          console.log(err);
-          this.$bus.$emit("message:push", "加入失敗", "danger");
+          this.$bus.$emit("message:push", `加入失敗(${err})`, "danger");
           this.isLoading = false;
         });
     },
@@ -312,48 +307,32 @@ export default {
       // 等同addToCart
       // 加速數量選擇
       this.status.loadingNum = id;
-      console.log(this.status.loadingNum);
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
       const cart = {
         product: id,
         quantity
       };
-      console.log(cart);
-      console.log(cart.quantity);
-      this.$http
-        .patch(url, cart)
-        .then(res => {
-          // 加速數量選擇
-          this.status.loadingNum = "";
-          console.log(res);
-          // console.log(this.carts.length);
-          this.cartTotal = 0;
-          this.cartPageTotalNum = 0;
-          this.$bus.$emit("get-cart-num");
-          this.updateCartTotal();
-          this.getCart();
-        })
-        .catch(err => {
-          console.dir(err);
-        });
+      this.$http.patch(url, cart).then(() => {
+        // 加速數量選擇
+        this.status.loadingNum = "";
+        this.cartTotal = 0;
+        this.cartPageTotalNum = 0;
+        this.$bus.$emit("get-cart-num");
+        this.updateCartTotal();
+        this.getCart();
+      });
     },
     getCart() {
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
-      this.$http
-        .get(url)
-        .then(res => {
-          console.log(res);
-          this.carts = res.data.data;
-          this.cartTotalNum = 0;
-          this.carts.forEach(item => {
-            this.cartPageTotalNum += item.quantity;
-          });
-          this.cartTotal = 0;
-          this.updateCartTotal();
-        })
-        .catch(err => {
-          console.dir(err);
+      this.$http.get(url).then(res => {
+        this.carts = res.data.data;
+        this.cartTotalNum = 0;
+        this.carts.forEach(item => {
+          this.cartPageTotalNum += item.quantity;
         });
+        this.cartTotal = 0;
+        this.updateCartTotal();
+      });
     }
   },
   created() {

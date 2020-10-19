@@ -351,12 +351,10 @@ export default {
       this.$http
         .get(url)
         .then(res => {
-          console.log(res);
           this.prods = res.data.data;
           this.isLoading = false;
         })
         .catch(err => {
-          console.log(err);
           this.isLoading = false;
           this.$bus.$emit("message:push", err.response.data.message, "danger");
         });
@@ -368,14 +366,12 @@ export default {
       this.$http
         .get(url)
         .then(res => {
-          console.log(res);
           this.tempProd = res.data.data;
           this.$set(this.tempProd, "num", 0);
           $("#prodModal").modal("show");
           this.isLoading = false;
         })
         .catch(err => {
-          console.dir(err);
           this.$bus.$emit("message:push", err.response.data.message, "danger");
           this.isLoading = false;
         });
@@ -397,30 +393,22 @@ export default {
           this.getCart();
         })
         .catch(err => {
-          console.log(err);
           this.status.loadingItem = "";
-          this.$bus.$emit("message:push", "加入購物車失敗", "danger");
+          this.$bus.$emit("message:push", `加入購物車失敗(${err})`, "danger");
           $("#prodModal").modal("hide");
         });
     },
     getCart() {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
-      this.$http
-        .get(url)
-        .then(res => {
-          this.cart = res.data.data;
-          console.log(this.cart);
-          this.cartTotal = 0;
-          this.cart.forEach(item => {
-            console.log(item);
-            this.cartTotal += item.product.price * item.quantity;
-          });
-          this.isLoading = false;
-        })
-        .catch(err => {
-          console.log(err);
+      this.$http.get(url).then(res => {
+        this.cart = res.data.data;
+        this.cartTotal = 0;
+        this.cart.forEach(item => {
+          this.cartTotal += item.product.price * item.quantity;
         });
+        this.isLoading = false;
+      });
     },
     qtyUpdate(id, num) {
       if (num <= 0) return;
@@ -431,46 +419,28 @@ export default {
         product: id,
         quantity: num
       };
-      this.$http
-        .patch(url, data)
-        .then(() => {
-          this.isLoading = false;
-          this.getCart();
-        })
-        .catch(err => {
-          console.log(err);
-          this.isLoading = false;
-        });
+      this.$http.patch(url, data).then(() => {
+        this.isLoading = false;
+        this.getCart();
+      });
     },
     rmAllCartItem() {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping/all/product`;
-      this.$http
-        .delete(url)
-        .then(() => {
-          this.$bus.$emit("message:push", "全部商品已刪除", "info");
-          this.isLoading = false;
-          this.getCart();
-        })
-        .catch(err => {
-          console.log(err);
-          this.isLoading = false;
-        });
+      this.$http.delete(url).then(() => {
+        this.$bus.$emit("message:push", "全部商品已刪除", "info");
+        this.isLoading = false;
+        this.getCart();
+      });
     },
     rmCartItem(id) {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping/${id}`;
-      this.$http
-        .delete(url)
-        .then(() => {
-          this.$bus.$emit("message:push", "商品刪除成功", "info");
-          this.isLoading = false;
-          this.getCart();
-        })
-        .catch(err => {
-          console.log(err);
-          this.isLoading = false;
-        });
+      this.$http.delete(url).then(() => {
+        this.$bus.$emit("message:push", "商品刪除成功", "info");
+        this.isLoading = false;
+        this.getCart();
+      });
     },
     addCoupon() {
       this.isLoading = true;
@@ -482,8 +452,7 @@ export default {
           this.isLoading = false;
         })
         .catch(err => {
-          console.log(err);
-          this.$bus.$emit("message:push", "加入失敗", "danger");
+          this.$bus.$emit("message:push", `加入失敗${err}`, "danger");
           this.isLoading = false;
         });
     },
@@ -505,8 +474,7 @@ export default {
           this.isLoading = false;
         })
         .catch(err => {
-          console.log(err);
-          this.$bus.$emit("message:push", "訂單建立失敗", "danger");
+          this.$bus.$emit("message:push", `訂單建立失敗(${err})`, "danger");
           this.isLoading = false;
         });
     }

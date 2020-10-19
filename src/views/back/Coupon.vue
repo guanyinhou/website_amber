@@ -238,17 +238,10 @@ export default {
     getCoupons() {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/admin/ec/coupons`;
-      this.$http
-        .get(url)
-        .then(res => {
-          console.log(res);
-          this.coupons = res.data.data;
-          this.isLoading = false;
-        })
-        .catch(err => {
-          console.dir(err);
-          this.isLoading = false;
-        });
+      this.$http.get(url).then(res => {
+        this.coupons = res.data.data;
+        this.isLoading = false;
+      });
     },
     updateCoupon() {
       this.isLoading = true;
@@ -264,7 +257,6 @@ export default {
         httpMethod = "patch";
         this.tempCoupon.deadline_at = `${this.due_date} ${this.due_time}`;
       }
-      console.log(this.tempCoupon.deadline_at);
 
       this.$http[httpMethod](url, this.tempCoupon)
         .then(() => {
@@ -275,8 +267,7 @@ export default {
         })
         .catch(err => {
           this.isLoading = false;
-          console.dir(err);
-          this.$bus.$emit("message:push", "出現錯誤", "danger");
+          this.$bus.$emit("message:push", `出現錯誤${err}`, "danger");
         });
     },
     delCoupon() {
@@ -293,8 +284,7 @@ export default {
         .catch(err => {
           this.isLoading = false;
           $("#delCouponModal").modal("hide");
-          this.$bus.$emit("message:push", "刪除失敗", "danger");
-          console.dir(err);
+          this.$bus.$emit("message:push", `刪除失敗${err}`, "danger");
         });
     }
   }

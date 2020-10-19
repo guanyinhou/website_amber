@@ -5,19 +5,16 @@
 </template>
 
 <script>
-// /* global $ */
 export default {
   data() {
     return {
       favoriteTotalNum: 0,
-      // favoriteProd: [],
       favorited: JSON.parse(localStorage.getItem("favoriteList")) || []
     };
   },
   created() {
     this.getFavorite();
     this.$bus.$on("get-favorite-num:favorited", id => {
-      // console.log(id);
       this.updateFavorite(id);
     });
   },
@@ -26,25 +23,15 @@ export default {
       this.favoriteTotalNum = this.favorited.length;
     },
     updateFavorite(id) {
-      console.log(this);
-      console.log(this.favorited);
-      console.log(id);
-      console.log(this.favorited.indexOf(id));
       if (id === null || undefined || "") {
         this.favorited = [];
-        // this.$bus.$emit("message:push", "已加入我的最愛", "info");
       } else if (this.favorited.indexOf(id) === -1) {
-        // this.favorited.splice(0);
         this.favorited.push(id);
       } else {
         this.favorited.splice(this.favorited.indexOf(id), 1);
-        // this.$bus.$emit("message:push", "已移出我的最愛", "info");
       }
       localStorage.setItem("favoriteList", JSON.stringify(this.favorited));
       this.favoriteTotalNum = this.favorited.length;
-      console.log(this.favorited.indexOf(id));
-      console.log(this.favorited);
-      // localStorage.setItem("favoriteList", JSON.stringify(this.favorited));
     }
   }
 };

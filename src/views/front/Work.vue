@@ -1,5 +1,5 @@
 <template>
-  <div class="work" v-if="prods">
+  <div class="work" v-if="work !== undefined && work">
     <loading :active.sync="isLoading"></loading>
     <div class="container">
       <div class="text-center">
@@ -81,18 +81,14 @@
             </div>
           </div>
         </div>
-        <br />
-        <br />
-        <br />
         <div class="prod-content">
           <div class="sub-title">作品介紹</div>
           <div v-html="work.content"></div>
         </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <div class="prod-content" v-if="viewedProds.length > 0">
+        <div
+          class="prod-content"
+          v-if="viewedProds !== undefined && viewedProds.length > 0"
+        >
           <div class="sub-title">瀏覽紀錄：</div>
           <VueSlickCarousel v-bind="settings1">
             <div v-for="viewedProd in viewedProds" :key="viewedProd.id">
@@ -100,24 +96,22 @@
                 <div class="more-work-img">
                   <img :src="viewedProd.imageUrl[0]" :alt="viewedProd.title" />
                 </div>
-                <div class="text-center">
-                  <p>{{ viewedProd.title }}</p>
-                  <div class="more-work-price">
-                    <div
-                      class="prod-origin-price"
-                      v-if="viewedProd.origin_price === viewedProd.price"
-                    >
+                <p>{{ viewedProd.title }}</p>
+                <div class="more-work-price">
+                  <div
+                    class="prod-origin-price"
+                    v-if="viewedProd.origin_price === viewedProd.price"
+                  >
+                    {{ viewedProd.origin_price | currency }}
+                  </div>
+                  <span v-else>
+                    <div class="prod-origin-price old-price">
                       {{ viewedProd.origin_price | currency }}
                     </div>
-                    <span v-else>
-                      <div class="prod-origin-price old-price">
-                        {{ viewedProd.origin_price | currency }}
-                      </div>
-                      <div class="prod-price">
-                        <h2>{{ viewedProd.price | currency }}</h2>
-                      </div>
-                    </span>
-                  </div>
+                    <div class="prod-price">
+                      <h2>{{ viewedProd.price | currency }}</h2>
+                    </div>
+                  </span>
                 </div>
               </router-link>
               <a
@@ -141,7 +135,10 @@
             </div>
           </VueSlickCarousel>
         </div>
-        <div class="prod-content more-works" v-if="moreworks.length > 0">
+        <div
+          class="prod-content more-works"
+          v-if="moreworks !== undefined && moreworks.length > 0"
+        >
           <div class="sub-title">更多{{ work.category }}畫作品：</div>
           <VueSlickCarousel v-bind="settings1">
             <div v-for="morework in moreworks" :key="morework.id">
@@ -150,24 +147,22 @@
                 <div class="more-work-img">
                   <img :src="morework.imageUrl[0]" :alt="morework.title" />
                 </div>
-                <div class="text-center">
-                  <p>{{ morework.title }}</p>
-                  <div class="more-work-price">
-                    <div
-                      class="prod-origin-price"
-                      v-if="morework.origin_price === morework.price"
-                    >
+                <p>{{ morework.title }}</p>
+                <div class="more-work-price">
+                  <div
+                    class="prod-origin-price"
+                    v-if="morework.origin_price === morework.price"
+                  >
+                    {{ morework.origin_price | currency }}
+                  </div>
+                  <span v-else>
+                    <div class="prod-origin-price old-price">
                       {{ morework.origin_price | currency }}
                     </div>
-                    <span v-else>
-                      <div class="prod-origin-price old-price">
-                        {{ morework.origin_price | currency }}
-                      </div>
-                      <div class="prod-price">
-                        <h2>{{ morework.price | currency }}</h2>
-                      </div>
-                    </span>
-                  </div>
+                    <div class="prod-price">
+                      <h2>{{ morework.price | currency }}</h2>
+                    </div>
+                  </span>
                 </div>
               </router-link>
               <a
@@ -207,16 +202,6 @@ export default {
   },
   data() {
     return {
-      // settings: {
-      //   fade: true,
-      //   dots: true,
-      //   dotsClass: "slick-dots custom-dot-class",
-      //   edgeFriction: 0.35,
-      //   infinite: true,
-      //   speed: 500,
-      //   slidesToShow: 1,
-      //   slidesToScroll: 1
-      // },
       settings1: {
         dots: true,
         infinite: false,
@@ -251,14 +236,15 @@ export default {
           }
         ]
       },
-      work: {},
-      prods: null,
+      work: {
+        imageUrl: []
+      },
+      prods: [],
       moreworks: [],
       viewedProds: [],
       viewed: JSON.parse(localStorage.getItem("viewedList")) || [],
       favorited: JSON.parse(localStorage.getItem("favoriteList")) || [],
       isLoading: false
-      // cartTotal: 0
     };
   },
   created() {
@@ -276,25 +262,16 @@ export default {
         this.$bus.$emit("message:push", "已移出我的最愛", "info");
       }
       localStorage.setItem("favoriteList", JSON.stringify(this.favorited));
-      // this.favoriteTotalNum = this.favorited.length;
       this.$bus.$emit("get-favorite-num:favorited", id);
     },
     getWork() {
-      this.isLoading = true;
       const id = this.$route.params.id;
-      this.$http
-        .get(
-          `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/product/${id}`
-        )
-        .then(res => {
-          // if (this.getMoreworks() === false) {
-          //   return;
-          // }
-          // console.log(Boolean(this.getMoreworks()));
-          this.isLoading = false;
-          this.work = res.data.data;
-          console.log(this.work);
-        });
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/product/${id}`;
+      this.isLoading = true;
+      this.$http.get(url).then(res => {
+        this.isLoading = false;
+        this.work = res.data.data;
+      });
     },
     getMoreworks() {
       this.isLoading = true;
@@ -304,19 +281,13 @@ export default {
         .then(res => {
           this.isLoading = false;
           this.prods = res.data.data;
-          console.log(this.prods);
-          // let obj = JSON.parse(JSON.stringify(this.prods));
           // 相關作品
           this.moreworks = this.prods.filter(
             item =>
               item.category === this.work.category && item.id !== this.work.id
           );
-          // console.log(land);
-          // this.moreworks = obj;
-          console.log("moreworks", this.moreworks);
         })
         .catch(err => {
-          console.dir(err);
           this.isLoading = false;
           this.$bus.$emit("message:push", err.response.data.message, "danger");
         });
@@ -329,8 +300,6 @@ export default {
         .then(res => {
           this.isLoading = false;
           this.prods = res.data.data;
-          console.log(this.prods);
-          // let obj = JSON.parse(JSON.stringify(this.prods));
           // 瀏覽紀錄
           const viewedId = this.$route.params.id;
           if (this.viewed.indexOf(viewedId) === -1) {
@@ -342,10 +311,8 @@ export default {
           this.viewedProds = this.prods.filter(
             item => this.viewed.indexOf(item.id) > -1
           );
-          console.log("viewedProds", this.viewedProds);
         })
         .catch(err => {
-          console.dir(err);
           this.isLoading = false;
           this.$bus.$emit("message:push", err.response.data.message, "danger");
         });
@@ -357,21 +324,17 @@ export default {
         product: id,
         quantity: qty
       };
-      console.log(cart);
 
       this.$http
         .post(url, cart)
         .then(res => {
           this.isLoading = false;
-          console.log(res);
           this.$bus.$emit(
             "message:push",
             res.data.data.product.title + "已加入購物車",
             "info"
           );
           this.$bus.$emit("get-cart-num");
-          // $("#modal").modal("hide");
-          // this.getCart();
         })
         .catch(err => {
           this.isLoading = false;
@@ -380,7 +343,6 @@ export default {
             err.response.data.errors[0],
             "danger"
           );
-          // $("#modal").modal("hide");
         });
     }
   }

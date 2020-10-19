@@ -87,13 +87,11 @@ export default {
       this.$http
         .get(url)
         .then(res => {
-          console.log(res);
           this.orders = res.data.data;
           this.Pagination = res.data.meta.pagination;
           this.isLoading = false;
         })
         .catch(err => {
-          console.log(err);
           this.isLoading = false;
           this.$bus.$emit("message:push", err.response.data.message, "danger");
         });
@@ -108,12 +106,10 @@ export default {
       this.$http
         .patch(url, item.id)
         .then(res => {
-          console.log(res);
-          this.$bus.$emit("message:push", "付款狀態已修改", "info");
+          this.$bus.$emit("message:push", `付款狀態已修改(${res})`, "info");
           this.getOrders();
         })
         .catch(err => {
-          console.dir(err);
           this.$bus.$emit("message:push", err.response.data.message, "danger");
         });
     }

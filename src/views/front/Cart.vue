@@ -164,26 +164,9 @@ export default {
       carts: [],
       cartTotal: 0,
       cartPageTotalNum: 0
-      // coupon: {},
-      // coupon_code: ""
     };
   },
   methods: {
-    // addCoupon() {
-    //   this.isLoading = true;
-    //   const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/coupon/search`;
-    //   this.$http
-    //     .post(url, { code: this.coupon_code })
-    //     .then(res => {
-    //       this.coupon = res.data.data;
-    //       this.isLoading = false;
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //       this.$bus.$emit("message:push", "加入失敗", "danger");
-    //       this.isLoading = false;
-    //     });
-    // },
     updateCartTotal() {
       this.carts.forEach(item => {
         this.cartTotal += item.product.price * item.quantity;
@@ -194,86 +177,58 @@ export default {
       // 等同addToCart
       // 加速數量選擇
       this.status.loadingNum = id;
-      console.log(this.status.loadingNum);
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
       const cart = {
         product: id,
         quantity
       };
-      console.log(cart);
-      console.log(cart.quantity);
-      this.$http
-        .patch(url, cart)
-        .then(res => {
-          // 加速數量選擇
-          this.status.loadingNum = "";
-          console.log(res);
-          // console.log(this.carts.length);
-          this.cartTotal = 0;
-          this.cartPageTotalNum = 0;
-          this.$bus.$emit("get-cart-num");
-          this.updateCartTotal();
-          this.getCart();
-        })
-        .catch(err => {
-          console.dir(err);
-        });
+      this.$http.patch(url, cart).then(() => {
+        // 加速數量選擇
+        this.status.loadingNum = "";
+        this.cartTotal = 0;
+        this.cartPageTotalNum = 0;
+        this.$bus.$emit("get-cart-num");
+        this.updateCartTotal();
+        this.getCart();
+      });
     },
     rmCartItem(id) {
       this.status.loadingNum = id;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping/${id}`;
 
-      this.$http
-        .delete(url)
-        .then(res => {
-          // 加速數量選擇
-          this.status.loadingNum = "";
-          this.$bus.$emit("message:push", res.data.message, "info");
-          console.log(res);
-          this.cartPageTotalNum = 0;
-          this.$bus.$emit("get-cart-num");
-          this.getCart();
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      this.$http.delete(url).then(res => {
+        // 加速數量選擇
+        this.status.loadingNum = "";
+        this.$bus.$emit("message:push", res.data.message, "info");
+        this.cartPageTotalNum = 0;
+        this.$bus.$emit("get-cart-num");
+        this.getCart();
+      });
     },
     rmAllCartItem() {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping/all/product`;
-      this.$http
-        .delete(url)
-        .then(() => {
-          this.$bus.$emit("message:push", "全部商品已刪除", "info");
-          this.isLoading = false;
-          this.cartPageTotalNum = 0;
-          this.$bus.$emit("get-cart-num");
-          this.getCart();
-        })
-        .catch(err => {
-          console.log(err);
-          this.isLoading = false;
-        });
+      this.$http.delete(url).then(() => {
+        this.$bus.$emit("message:push", "全部商品已刪除", "info");
+        this.isLoading = false;
+        this.cartPageTotalNum = 0;
+        this.$bus.$emit("get-cart-num");
+        this.getCart();
+      });
     },
     getCart() {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
-      this.$http
-        .get(url)
-        .then(res => {
-          this.isLoading = false;
-          console.log(res);
-          this.carts = res.data.data;
-          this.cartTotalNum = 0;
-          this.carts.forEach(item => {
-            this.cartPageTotalNum += item.quantity;
-          });
-          this.cartTotal = 0;
-          this.updateCartTotal();
-        })
-        .catch(err => {
-          console.dir(err);
+      this.$http.get(url).then(res => {
+        this.isLoading = false;
+        this.carts = res.data.data;
+        this.cartTotalNum = 0;
+        this.carts.forEach(item => {
+          this.cartPageTotalNum += item.quantity;
         });
+        this.cartTotal = 0;
+        this.updateCartTotal();
+      });
     }
   },
   created() {

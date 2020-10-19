@@ -62,7 +62,6 @@
 export default {
   data() {
     return {
-      token: "",
       checkSuccess: false
     };
   },

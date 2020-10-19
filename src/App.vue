@@ -1,9 +1,22 @@
 <template>
   <div
     id="app"
-    :key="key"
     :style="{
-      backgroundImage: this.$route.name === 'Front' ? `url(${bg})` : ''
+      backgroundImage:
+        this.$route.name === 'Works' ||
+        this.$route.name === 'Home' ||
+        this.$route.name === 'About' ||
+        this.$route.name === 'Work' ||
+        this.$route.name === 'Contact' ||
+        this.$route.name === 'Order' ||
+        this.$route.name === 'Favorite' ||
+        this.$route.name === 'Cart' ||
+        this.$route.name === 'Checkout' ||
+        this.$route.name === 'CheckoutFinish' ||
+        this.$route.name === 'Error' ||
+        this.$route.name === 'Login'
+          ? `url(${bg})`
+          : ''
     }"
   >
     <!-- <div id="nav">
@@ -11,7 +24,7 @@
       <router-link to="/about">About</router-link>
     </div> -->
     <Toast />
-    <router-view />
+    <router-view :key="key" />
     <Footer />
     <Gototop />
   </div>
@@ -37,15 +50,6 @@ export default {
   computed: {
     key() {
       return this.$route.path + Math.random();
-    }
-  },
-  methods: {
-    checkBg() {
-      // return this.$router.history.current["path"] === "Home";
-      // console.log(this.$route.name);
-      if (this.$route.name === "Front") {
-        return true;
-      }
     }
   }
 };

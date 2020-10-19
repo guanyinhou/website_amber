@@ -104,13 +104,11 @@ export default {
       this.$http
         .get(url)
         .then(res => {
-          console.log(res);
           this.pics = res.data.data;
           this.Pagination = res.data.meta.pagination;
           this.isLoading = false;
         })
         .catch(err => {
-          console.log(err);
           this.isLoading = false;
           this.$bus.$emit("message:push", err.response.data.message, "danger");
         });
@@ -122,14 +120,12 @@ export default {
       this.$http
         .delete(url)
         .then(res => {
-          console.log(res);
           this.isLoading = false;
           $("#deleteModal").modal("hide");
-          this.$bus.$emit("message:push", "圖片刪除成功", "info");
+          this.$bus.$emit("message:push", `圖片刪除成功(${res})`, "info");
           this.getData();
         })
         .catch(err => {
-          console.dir(err);
           this.isLoading = false;
           $("#deleteModal").modal("hide");
           this.$bus.$emit("message:push", err.response.data.message, "danger");

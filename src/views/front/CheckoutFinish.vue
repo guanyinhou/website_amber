@@ -20,9 +20,6 @@
             <br />
             <p>感謝您的購買</p>
             <h4>祝您購物愉快！</h4>
-            <br />
-            <br />
-            <br />
             <router-link class="btn pos-abs show-767" to="/home">
               <i class="fa fa-home"></i> 回到首頁
             </router-link>
@@ -102,8 +99,6 @@
             </div>
           </div>
           <div class="col-md-12 hide-767 text-center">
-            <br />
-            <br />
             <router-link class="btn full-479" to="/home">
               <i class="fa fa-home"></i> 回到首頁
             </router-link>
@@ -134,23 +129,18 @@ export default {
   methods: {
     getOrder() {
       this.orderId = this.$route.params.orderId;
-      // console.log(this.orderId);
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/orders/${this.orderId}`;
       this.isLoading = true;
       this.$http
         .get(url)
         .then(res => {
           this.isLoading = false;
-          // console.log(res);
           this.order = res.data.data;
           this.orderProds = res.data.data.products;
-          console.log(this.order);
-          console.log(this.orderProds);
         })
         .catch(err => {
           this.isLoading = false;
-          console.dir(err);
-          this.$bus.$emit("message:push", `讀取錯誤`, "danger");
+          this.$bus.$emit("message:push", `讀取錯誤${err}`, "danger");
         });
     }
   }

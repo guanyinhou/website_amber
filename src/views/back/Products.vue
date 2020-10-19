@@ -313,7 +313,6 @@
 <script>
 /* global $ */
 import { VueEditor } from "vue2-editor/dist/vue2-editor.core";
-// import Pagination from "@/components/Pagination.vue";
 import Pagination from "@/components/Pagination.vue";
 
 export default {
@@ -349,7 +348,6 @@ export default {
       this.$http
         .get(url)
         .then(res => {
-          console.log(res);
           this.prods = res.data.data;
           this.isLoading = false;
           this.Pagination = res.data.meta.pagination;
@@ -373,7 +371,6 @@ export default {
           this.isLoading = false;
         })
         .catch(err => {
-          console.dir(err);
           this.$bus.$emit("message:push", err.message, "danger");
           this.isLoading = false;
         });
@@ -392,11 +389,7 @@ export default {
           break;
         case "edit":
           this.isNew = false;
-          // this.tempProd = JSON.parse(JSON.stringify(item));
-          // console.log(item);
           this.getProd(item.id);
-          // this.$refs.prodModal.getProd(this.tempData.id);
-          // $("#prodModal").modal("show");
           break;
         case "delete":
           this.tempProd = { ...item };
@@ -426,7 +419,6 @@ export default {
           this.getProds();
         })
         .catch(err => {
-          console.dir(err);
           this.$bus.$emit(
             "message:push",
             `商品${this.isNew ? "新增" : "更新"}失敗：${
@@ -467,17 +459,15 @@ export default {
       this.$http
         .delete(url)
         .then(res => {
-          console.log(res);
           $("#deleteModal").modal("hide");
           this.isLoading = false;
-          this.$bus.$emit("message:push", "刪除成功", "info");
+          this.$bus.$emit("message:push", `刪除成功(${res})`, "info");
           this.getProds();
         })
         .catch(err => {
-          console.dir(err);
           $("#deleteModal").modal("hide");
           this.isLoading = false;
-          this.$bus.$emit("message:push", "刪除失敗", "danger");
+          this.$bus.$emit("message:push", `刪除失敗(${err})`, "danger");
         });
     }
   }

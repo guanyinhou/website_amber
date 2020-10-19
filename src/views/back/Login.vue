@@ -1,5 +1,5 @@
 <template>
-  <div class="front login">
+  <div class="login">
     <loading :active.sync="isLoading"></loading>
     <div class="container">
       <div class="row">
@@ -10,13 +10,9 @@
               The Art of<br />
               Amber Wu
             </h1>
-            <h1>後臺登入</h1>
+            <h1 class="title">後臺登入</h1>
             <form class="form-signin" @submit.prevent.enter="signin">
-              <br />
-              <br />
-              <br />
               <hr />
-              <br />
               <input
                 type="email"
                 class="form-control"
@@ -75,13 +71,10 @@ export default {
           )}`;
           this.$bus.$emit("message:push", res.data.message, "info");
           this.$router.push("/admin");
-          console.log(res);
         })
         .catch(err => {
-          console.dir(err);
           this.isLoading = false;
           this.$bus.$emit("message:push", err.response.data.message, "danger");
-          //   this.$bus.$emit("message:push", "失敗", "info");
         });
     }
   }

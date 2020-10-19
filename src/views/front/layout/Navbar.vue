@@ -95,9 +95,6 @@ export default {
   },
   data() {
     return {
-      // token: "",
-      // checkSuccess: false
-      prods: [],
       carts: [],
       cartTotalNum: 0,
       favorited: JSON.parse(localStorage.getItem("favoriteList")) || []
@@ -110,11 +107,7 @@ export default {
     });
   },
   mounted() {
-    // $(".navbar-toggler").on("click", function(){
-    //   $(this).children(".navbar-toggler-icon").css()
-    // });
     $(".nav-link").on("click", function() {
-      // console.log("test");
       $(this)
         .parentsUntil("nav")
         .removeClass("show");
@@ -128,25 +121,15 @@ export default {
     });
   },
   methods: {
-    // signout() {
-    //   document.cookie = "tokenName=;expire=;";
-    //   window.location = "/final_work/dist/#/";
-    // }
     getCart() {
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`;
-      this.$http
-        .get(url)
-        .then(res => {
-          console.log(res);
-          this.carts = res.data.data;
-          this.cartTotalNum = 0;
-          this.carts.forEach(item => {
-            this.cartTotalNum += item.quantity;
-          });
-        })
-        .catch(err => {
-          console.dir(err);
+      this.$http.get(url).then(res => {
+        this.carts = res.data.data;
+        this.cartTotalNum = 0;
+        this.carts.forEach(item => {
+          this.cartTotalNum += item.quantity;
         });
+      });
     }
   }
 };

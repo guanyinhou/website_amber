@@ -99,32 +99,24 @@
 </template>
 
 <script>
-// /* global $ */
-// import { VueEditor } from "vue2-editor/dist/vue2-editor.core";
 import Pagination from "@/components/Pagination.vue";
 
 export default {
   components: {
     Pagination
-    // VueEditor
   },
   data() {
     return {
       prods: [],
       isLoading: false,
       Pagination: {},
-      // isAll: true,
-      // isLand: false,
-      // isSea: false,
       cates: ["風景", "海景"],
       filterCate: "",
       favorited: JSON.parse(localStorage.getItem("favoriteList")) || []
-      // id: ""
     };
   },
   methods: {
     updateFavorite(id) {
-      console.log(id);
       if (this.favorited.indexOf(id) === -1) {
         this.favorited.push(id);
         this.$bus.$emit("message:push", "已加入我的最愛", "info");
@@ -133,9 +125,7 @@ export default {
         this.$bus.$emit("message:push", "已移出我的最愛", "info");
       }
       localStorage.setItem("favoriteList", JSON.stringify(this.favorited));
-      // this.favoriteTotalNum = this.favorited.length;
       this.$bus.$emit("get-favorite-num:favorited", id);
-      console.log(this.favorited);
     },
     addToCart(id, qty = 1) {
       this.isLoading = true;
@@ -144,13 +134,11 @@ export default {
         product: id,
         quantity: qty
       };
-      console.log(cart);
 
       this.$http
         .post(url, cart)
         .then(res => {
           this.isLoading = false;
-          console.log(res);
 
           this.$bus.$emit(
             "message:push",
@@ -158,34 +146,20 @@ export default {
             "info"
           );
           this.$bus.$emit("get-cart-num");
-          // $("#modal").modal("hide");
-          // this.getCart();
         })
         .catch(err => {
           this.isLoading = false;
-          // console.log(err);
-          // console.log(err.response);
-          console.dir(err.response.data.errors[0]);
-          // alert(err.response.data.errors[0]);
 
           this.$bus.$emit(
             "message:push",
             err.response.data.errors[0],
             "danger"
           );
-          // $("#modal").modal("hide");
         });
     },
-    // updateCartTotal() {
-    //   this.carts.forEach(item => {
-    //     this.cartTotal += item.product.price * item.quantity;
-    //   });
-    // },
-    // getProds(page = 1) {
     getProds(page = 1) {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?page=${page}&paged=40`;
-      // const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?page=${page}`;
       this.$http
         .get(url)
         .then(res => {
@@ -195,85 +169,16 @@ export default {
           }
           this.isLoading = false;
           this.prods = res.data.data;
-          console.log(this.prods);
           this.Pagination = res.data.meta.pagination;
         })
         .catch(err => {
-          console.dir(err);
           this.isLoading = false;
           this.$bus.$emit("message:push", err.response.data.message, "danger");
         });
     }
-    // getAll() {
-    //   this.getProds();
-    //   this.isAll = true;
-    //   this.isLand = false;
-    //   this.isSea = false;
-    // },
-    // getLand() {
-    //   this.isLoading = true;
-    //   this.isAll = false;
-    //   this.isLand = true;
-    //   this.isSea = false;
-    //   const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?paged=40`;
-    //   this.$http
-    //     .get(url)
-    //     .then(res => {
-    //       this.isLoading = false;
-    //       this.prods = res.data.data;
-    //       console.log(res);
-    //       // this.prods.$set.length = 30;
-    //       // console.log(this.prods.length);
-    //       this.Pagination = res.data.meta.Pagination;
-    //       let obj = JSON.parse(JSON.stringify(this.prods));
-    //       // let land = JSON.parse(JSON.stringify(this.prods));
-    //       // let sea = JSON.parse(JSON.stringify(this.prods));
-    //       obj = this.prods.filter(item => item.category === "風景");
-    //       // console.log(land);
-    //       this.prods = obj;
-    //     })
-    //     .catch(err => {
-    //       console.dir(err);
-    //       this.isLoading = false;
-    //       this.$bus.$emit("message:push", err.response.data.message, "danger");
-    //     });
-    // },
-    // getSea() {
-    //   this.isLoading = true;
-    //   this.isAll = false;
-    //   this.isLand = false;
-    //   this.isSea = true;
-    //   const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?paged=40`;
-    //   this.$http
-    //     .get(url)
-    //     .then(res => {
-    //       this.isLoading = false;
-    //       this.prods = res.data.data;
-    //       console.log(res);
-    //       // this.prods.$set.length = 30;
-    //       console.log(this.prods.length);
-    //       this.Pagination = res.data.meta.Pagination;
-    //       let obj = JSON.parse(JSON.stringify(this.prods));
-    //       // let land = JSON.parse(JSON.stringify(this.prods));
-    //       // let sea = JSON.parse(JSON.stringify(this.prods));
-    //       obj = this.prods.filter(item => {
-    //         // console.log(item);
-    //         return item.category === "海景";
-    //         // return item.origin_price === 4709;
-    //       });
-    //       // console.log(land);
-    //       this.prods = obj;
-    //     })
-    //     .catch(err => {
-    //       console.dir(err);
-    //       this.isLoading = false;
-    //       this.$bus.$emit("message:push", err.response.data.message, "danger");
-    //     });
-    // }
   },
   created() {
     this.getProds();
-    // this.getCart();
   },
   computed: {
     filterCates() {
