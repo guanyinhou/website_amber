@@ -82,7 +82,7 @@
                     class="btn"
                     type="button"
                     data-toggle="modal"
-                    data-target="#prodModal"
+                    data-target="#orderModal"
                   >
                     詳細
                   </button>
@@ -93,13 +93,13 @@
         </div>
       </div>
     </div>
-    <!-- prodModal -->
+    <!-- orderModal -->
     <form>
       <div
         class="modal fade"
-        id="prodModal"
+        id="orderModal"
         tabindex="-1"
-        aria-labelledby="prodModal"
+        aria-labelledby="orderModal"
         aria-hidden="true"
       >
         <div class="modal-dialog modal-lg">
@@ -121,7 +121,7 @@
               <div class="row">
                 <div class="col-sm-12">
                   <!-- 輸入圖片連結 -->
-                  <div class="form-group">
+                  <div class="form-group order-id">
                     <label>訂單編號：</label>
                     <p>{{ result.id }}</p>
                   </div>
